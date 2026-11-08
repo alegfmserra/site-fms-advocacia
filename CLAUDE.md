@@ -5,6 +5,7 @@
 ## O que é
 
 - Site **estático** (HTML + CSS + JS puros, sem build), publicado no **GitHub Pages** a partir da branch `main`.
+- Repositório: https://github.com/alegfmserra/site-fms-advocacia (público) · Site no ar: https://alegfmserra.github.io/site-fms-advocacia/ (Pages ativado em 2026-11-08; cada push na `main` republica em ~1 min).
 - Página única (`index.html`) com seções: Início · Escritório · Atuação · Equipe · Na Mídia · Contato.
 - Conteúdo de vídeo vem do canal do YouTube do Dr. João Vitor (Vitor Moreira Serra): `https://www.youtube.com/channel/UC1i2CtfxY4VRL4IqHbAFFnQ` (@vitormoreiraserra_adv).
 

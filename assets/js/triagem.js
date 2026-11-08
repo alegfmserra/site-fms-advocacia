@@ -1,15 +1,18 @@
 // Conteúdo da triagem "Qual é o seu caso?" — EDITADO À MÃO.
 // Regras (Provimento 205/2021 da OAB): texto só informativo; sem promessa de resultado,
 // sem valores, sem "você vai ganhar". Cada caso termina convidando para a consulta.
+// - curto: texto do botão (curto); rotulo: frase completa que vira o título do painel
 // - area: valor do campo "tema" do formulário (Saúde | Militar | Cível/Empresarial | Outro)
 // - video: id de um corte do canal (opcional) que ajuda a entender o assunto.
 
 window.TRIAGEM = [
   {
     grupo: "Saúde",
+    icone: "saude",
     casos: [
       {
         id: "plano-negou",
+        curto: "Plano negou cobertura",
         area: "Saúde",
         rotulo: "O plano de saúde negou cirurgia, exame ou tratamento",
         saiba: [
@@ -22,6 +25,7 @@ window.TRIAGEM = [
       },
       {
         id: "medicamento",
+        curto: "Medicamento ou home care",
         area: "Saúde",
         rotulo: "Preciso de medicamento de alto custo ou home care",
         saiba: [
@@ -33,6 +37,7 @@ window.TRIAGEM = [
       },
       {
         id: "reajuste",
+        curto: "Reajuste ou cancelamento",
         area: "Saúde",
         rotulo: "Meu plano teve reajuste muito alto ou foi cancelado",
         saiba: [
@@ -45,9 +50,11 @@ window.TRIAGEM = [
   },
   {
     grupo: "Militares e servidores",
+    icone: "militar",
     casos: [
       {
         id: "militar",
+        curto: "Direitos da carreira",
         area: "Militar",
         rotulo: "Sou ou fui militar e tenho dúvidas sobre direitos da carreira",
         saiba: [
@@ -59,6 +66,7 @@ window.TRIAGEM = [
       },
       {
         id: "pad",
+        curto: "Sindicância ou PAD",
         area: "Militar",
         rotulo: "Respondo a sindicância ou processo disciplinar",
         saiba: [
@@ -69,6 +77,7 @@ window.TRIAGEM = [
       },
       {
         id: "concurso",
+        curto: "Concurso público",
         area: "Militar",
         rotulo: "Fui eliminado ou prejudicado em concurso público",
         saiba: [
@@ -82,9 +91,11 @@ window.TRIAGEM = [
   },
   {
     grupo: "Cível e consumidor",
+    icone: "civel",
     casos: [
       {
         id: "apostas",
+        curto: "Dívidas por apostas",
         area: "Cível/Empresarial",
         rotulo: "Apostas on-line geraram dívidas (minhas ou de alguém da família)",
         saiba: [
@@ -97,6 +108,7 @@ window.TRIAGEM = [
       },
       {
         id: "contrato",
+        curto: "Contrato, banco ou empresa",
         area: "Cível/Empresarial",
         rotulo: "Tenho problema com contrato, banco ou empresa",
         saiba: [
@@ -110,9 +122,11 @@ window.TRIAGEM = [
   },
   {
     grupo: "Outros",
+    icone: "outros",
     casos: [
       {
         id: "golpe",
+        curto: "Golpe do falso advogado",
         area: "Outro",
         rotulo: "Recebi mensagem de “advogado” dizendo que ganhei um processo",
         saiba: [
@@ -124,6 +138,7 @@ window.TRIAGEM = [
       },
       {
         id: "outro",
+        curto: "Outra situação",
         area: "Outro",
         rotulo: "Minha situação é outra",
         saiba: [

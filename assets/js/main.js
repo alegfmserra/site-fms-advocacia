@@ -11,8 +11,7 @@
   };
   const linkWhats = (texto) => `https://wa.me/${WHATS}?text=${encodeURIComponent(texto)}`;
   const thumb = (id) => `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
-  const celular = () => window.innerWidth < 860;
-
+  
   /* ---------- Cabeçalho: fundo ao rolar + menu mobile ---------- */
   const topo = $("#topo");
   const menuBtn = $(".menu-btn");
@@ -42,7 +41,7 @@
   const revObs = new IntersectionObserver((entradas) => {
     entradas.forEach((en) => { if (en.isIntersecting) { en.target.classList.add("visivel"); revObs.unobserve(en.target); } });
   }, { threshold: 0.12 });
-  $$(".escritorio > *, .escudo, .pessoa, .midia__cab, .player, .agenda, .passos li, .faq, .triagem").forEach((el) => {
+  $$(".escritorio > *, .escudo, .pessoa, .midia__cab, .player, .agenda, .passos li, .faq, .caso").forEach((el) => {
     el.classList.add("revela");
     revObs.observe(el);
   });
@@ -75,26 +74,58 @@
   }
 
   /* ---------- Seu caso: triagem interativa ---------- */
+  // Painel com abas por área (esquerda), situações em botões (topo) e orientação (corpo).
+  // Abre sempre com a primeira situação visível, para nunca ficar vazio.
   const TRIAGEM = Array.isArray(window.TRIAGEM) ? window.TRIAGEM : [];
-  const opcoesEl = $("#triagem-opcoes");
+  const abasEl = $("#triagem-abas");
+  const chipsEl = $("#triagem-chips");
   const painel = $("#triagem-painel");
   const casos = {};
+  const ICONES = {
+    saude: '<path d="M17 6v12a7 7 0 0 0 14 0V6M17 6h-3M31 6h3M24 25v6a8 8 0 0 0 8 8h2a4 4 0 1 0 0-8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M6 40l8-4h10l6 3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>',
+    militar: '<path d="M24 5l5 11 12 1-9 8 3 12-11-7-11 7 3-12-9-8 12-1z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>',
+    civel: '<path d="M24 4l17 10v20L24 44 7 34V14z M24 4v40 M7 14l34 20 M41 14L7 34" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>',
+    outros: '<path d="M8 10h32v22H22l-9 8v-8H8z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M18 21h.01M24 21h.01M30 21h.01" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>',
+  };
+  let grupoAtual = null;
 
-  TRIAGEM.forEach((g) => {
-    const grupo = criar("div", "triagem__grupo");
-    grupo.append(criar("p", "triagem__grupo-rot", g.grupo));
-    g.casos.forEach((c) => {
-      casos[c.id] = { ...c, grupo: g.grupo };
-      const b = criar("button", "triagem__op", c.rotulo);
+  TRIAGEM.forEach((g, gi) => {
+    g.casos.forEach((c) => { casos[c.id] = { ...c, grupo: g.grupo, gi }; });
+    const aba = criar("button", "caso__aba");
+    aba.type = "button";
+    aba.setAttribute("role", "tab");
+    aba.setAttribute("aria-selected", "false");
+    aba.dataset.gi = gi;
+    aba.innerHTML = `<svg viewBox="0 0 48 48" aria-hidden="true">${ICONES[g.icone] || ICONES.outros}</svg>`;
+    const txt = criar("span");
+    txt.append(criar("strong", null, g.grupo), criar("small", null, g.casos.length === 1 ? "1 situação" : `${g.casos.length} situações`));
+    aba.append(txt);
+    aba.addEventListener("click", () => abrirCaso(g.casos[0].id));
+    abasEl.append(aba);
+  });
+  if (TRIAGEM.length) {
+    const ajuda = criar("a", "caso__ajuda");
+    ajuda.href = linkWhats("Olá! Vim pelo site do escritório Ferreira & Moreira Serra e gostaria de falar sobre o meu caso.");
+    ajuda.target = "_blank";
+    ajuda.rel = "noopener";
+    ajuda.innerHTML = "Não encontrou a sua situação?<br><strong>Fale direto no WhatsApp →</strong>";
+    abasEl.append(ajuda);
+  }
+
+  function mostrarGrupo(gi) {
+    if (grupoAtual === gi) return;
+    grupoAtual = gi;
+    $$(".caso__aba", abasEl).forEach((a) => a.setAttribute("aria-selected", String(+a.dataset.gi === gi)));
+    chipsEl.innerHTML = "";
+    TRIAGEM[gi].casos.forEach((c) => {
+      const b = criar("button", "caso__chip", c.curto || c.rotulo);
       b.type = "button";
       b.dataset.caso = c.id;
       b.setAttribute("aria-pressed", "false");
-      b.setAttribute("aria-controls", "triagem-painel");
-      b.addEventListener("click", () => abrirCaso(c.id, celular()));
-      grupo.append(b);
+      b.addEventListener("click", () => abrirCaso(c.id));
+      chipsEl.append(b);
     });
-    opcoesEl.append(grupo);
-  });
+  }
 
   function mensagemDoCaso(c) {
     const tenho = $$(".docs input:checked", painel).map((i) => i.value);
@@ -108,20 +139,17 @@
     return linhas.join("\n");
   }
 
-  function abrirCaso(id, rolar) {
+  function abrirCaso(id) {
     const c = casos[id];
     if (!c) return;
-    $$(".triagem__op", opcoesEl).forEach((b) => {
-      const ativo = b.dataset.caso === id;
-      b.classList.toggle("ativo", ativo);
-      b.setAttribute("aria-pressed", String(ativo));
-    });
+    mostrarGrupo(c.gi);
+    $$(".caso__chip", chipsEl).forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.caso === id)));
 
     painel.innerHTML = "";
-    const card = criar("div", "triagem__card");
-    card.append(criar("p", "triagem__grupo-rot", c.grupo), criar("h3", "triagem__titulo", c.rotulo));
+    const box = criar("div", "caso__box");
+    box.append(criar("h3", "caso__titulo", c.rotulo));
 
-    const cols = criar("div", "triagem__cols");
+    const cols = criar("div", "caso__cols");
     const colA = criar("div");
     colA.append(criar("h4", null, "É bom saber"));
     const ulA = criar("ul", "saiba");
@@ -129,7 +157,7 @@
     colA.append(ulA);
 
     const colB = criar("div");
-    colB.append(criar("h4", null, "Separe estes documentos"), criar("p", "triagem__dica", "Marque o que você já tem:"));
+    colB.append(criar("h4", null, "Separe estes documentos"), criar("p", "caso__dica", "Marque o que você já tem:"));
     const ulB = criar("ul", "docs");
     c.docs.forEach((t) => {
       const li = criar("li");
@@ -143,30 +171,32 @@
     });
     colB.append(ulB);
     cols.append(colA, colB);
-    card.append(cols);
+    box.append(cols);
 
+    const rodape = criar("div", "caso__rodape");
     if (c.video && tituloPorId[c.video]) {
-      const vb = criar("button", "triagem__video");
+      const vb = criar("button", "caso__video");
       vb.type = "button";
       const img = criar("img");
       img.src = thumb(c.video);
       img.alt = "";
       img.loading = "lazy";
-      const txt = criar("span", "triagem__video-txt");
+      const txt = criar("span");
       txt.append(criar("small", null, "▶ Assista · Programa Saudações"), criar("strong", null, tituloPorId[c.video]));
       vb.append(img, txt);
       vb.addEventListener("click", () => {
-        const ifr = criar("iframe", "triagem__iframe");
+        const ifr = criar("iframe", "caso__iframe");
         ifr.src = `https://www.youtube-nocookie.com/embed/${c.video}?autoplay=1&rel=0`;
         ifr.title = tituloPorId[c.video];
         ifr.allow = "accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture";
         ifr.allowFullscreen = true;
         vb.replaceWith(ifr);
       });
-      card.append(vb);
+      rodape.append(vb);
+    } else {
+      rodape.append(criar("p", "caso__nota", "Informações gerais, que não substituem a análise do seu caso por um advogado."));
     }
-
-    const acoes = criar("div", "triagem__acoes");
+    const acoes = criar("div", "caso__acoes");
     const zap = criar("a", "btn btn--latao", "Falar sobre isso no WhatsApp");
     zap.target = "_blank";
     zap.rel = "noopener";
@@ -175,21 +205,23 @@
     agendar.href = "#contato";
     agendar.addEventListener("click", () => preencherFormulario(c.area, `Situação: ${c.rotulo}`));
     acoes.append(zap, agendar);
-    card.append(acoes, criar("p", "triagem__nota", "Informações gerais, que não substituem a análise do seu caso por um advogado."));
+    rodape.append(acoes);
+    box.append(rodape);
+    if (c.video && tituloPorId[c.video]) box.append(criar("p", "caso__nota", "Informações gerais, que não substituem a análise do seu caso por um advogado."));
 
     ulB.addEventListener("change", () => { zap.href = linkWhats(mensagemDoCaso(c)); });
-
-    painel.append(card);
-    if (rolar) painel.scrollIntoView({ behavior: "smooth", block: "start" });
+    painel.append(box);
   }
+
+  if (TRIAGEM.length) abrirCaso(TRIAGEM[0].casos[0].id);
+  else $("#seu-caso").hidden = true;
 
   // Atalhos do topo e "Entender meu caso" dos cards de atuação abrem a triagem já no caso certo
   $$("a[data-caso]").forEach((a) => a.addEventListener("click", (e) => {
     if (!casos[a.dataset.caso]) return;
     e.preventDefault();
-    abrirCaso(a.dataset.caso, false);
-    const alvo = celular() ? painel : $("#seu-caso");
-    alvo.scrollIntoView({ behavior: "smooth", block: "start" });
+    abrirCaso(a.dataset.caso);
+    $("#triagem").scrollIntoView({ behavior: "smooth", block: "start" });
     history.replaceState(null, "", "#seu-caso");
   }));
 
@@ -292,7 +324,7 @@
       sub: e.convidado ? "com " + e.convidado : "",
       link: `https://www.youtube.com/playlist?list=${e.lista}`,
       videos: e.videos,
-      origem: "Programa Saudações · " + e.tema,
+      origem: "Programa Saudações · Band" + (e.data ? " · " + fmtData(e.data) : ""),
     })));
     if (t.shorts.length) {
       episodiosEl.append(bloco({ rotulo: t.shortsRotulo || "Cortes", videos: t.shorts, origem: "Corte · Programa Saudações" }));
@@ -315,7 +347,7 @@
     renderizarTema(temas[0]);
     const t0 = temas[0];
     const primeiro = t0.eps[0]
-      ? { ...t0.eps[0].videos[0], origem: "Programa Saudações · " + t0.eps[0].tema }
+      ? { ...t0.eps[0].videos[0], origem: "Programa Saudações · Band" + (t0.eps[0].data ? " · " + fmtData(t0.eps[0].data) : "") }
       : { ...t0.shorts[0], origem: "Corte · Programa Saudações" };
     mostrarNoPlayer(primeiro, false);
     $(".player__capa", player).addEventListener("click", () => mostrarNoPlayer(atual, true));

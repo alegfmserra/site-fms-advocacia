@@ -62,6 +62,8 @@ node scripts/atualizar-videos.js
 4. O formulário não guarda dados: ele monta uma mensagem e abre o WhatsApp do escritório.
 5. Datas em ISO `AAAA-MM-DD` nos registros. Commits em português, descritivos.
 6. Antes de publicar (push na `main`), abrir o site localmente e conferir desktop e celular.
+7. **Cache**: o GitHub Pages guarda CSS/JS por 10 min no navegador do visitante. A cada publicação que mexa em CSS ou JS, trocar o `?v=` dos `<link>`/`<script>` no `index.html` (ex.: `?v=20261108b` → `?v=20261109a`). Sem isso, quem já visitou recebe página nova com script velho (foi o que deixou a triagem vazia em 2026-11-08).
+8. Nada de seção ou painel que apareça vazio: todo componente interativo abre já com conteúdo (ex.: a triagem abre no primeiro caso).
 
 ## Pendências a confirmar com o Alexandre
 

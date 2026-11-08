@@ -3,12 +3,19 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Ferreira & Moreira Serra Advogados Associados · São Luís/MA</title>
-  <meta name="description" content="Escritório de advocacia em São Luís (MA) com atuação nacional por processo eletrônico: Direito à Saúde, Direito Militar e de Servidores Públicos, Cível, Consumidor e Contratos.">
-  <meta property="og:title" content="Ferreira & Moreira Serra Advogados Associados">
-  <meta property="og:description" content="De São Luís para todo o Brasil. Processo eletrônico e atendimento por videoconferência.">
+  <title>Advogados em São Luís (MA) · Direito à Saúde e Direito Militar | Ferreira &amp; Moreira Serra</title>
+  <meta name="description" content="Escritório de advocacia em São Luís (MA) com atuação em todo o Brasil: plano de saúde e medicamentos, direito militar e de servidores, concursos, consumidor e contratos. Atendimento presencial ou por videoconferência.">
+  <!-- Ao apontar o domínio próprio, trocar este endereço aqui, no og:url, no og:image, no JSON-LD, no sitemap.xml e no robots.txt -->
+  <link rel="canonical" href="https://alegfmserra.github.io/site-fms-advocacia/">
+  <meta property="og:title" content="Ferreira &amp; Moreira Serra Advogados Associados">
+  <meta property="og:description" content="Antes do processo, ouvimos a sua história. Escritório em São Luís (MA), com atuação em todo o Brasil.">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="pt_BR">
+  <meta property="og:url" content="https://alegfmserra.github.io/site-fms-advocacia/">
+  <meta property="og:image" content="https://alegfmserra.github.io/site-fms-advocacia/assets/img/og-fms.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
   <meta name="theme-color" content="#141F31">
   <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -20,18 +27,41 @@
     "@context": "https://schema.org",
     "@type": "LegalService",
     "name": "Ferreira & Moreira Serra Advogados Associados",
+    "url": "https://alegfmserra.github.io/site-fms-advocacia/",
+    "logo": "https://alegfmserra.github.io/site-fms-advocacia/assets/img/logo-fms.png",
+    "image": "https://alegfmserra.github.io/site-fms-advocacia/assets/img/og-fms.png",
     "email": "vitorms@moreiraserraadv.com.br",
     "telephone": "+55-98-98411-5013",
     "address": {
       "@type": "PostalAddress",
-      "streetAddress": "Av. dos Holandeses, 1, Qd. 32, 2º andar, Praia Shopping",
+      "streetAddress": "Av. dos Holandeses, 1, Qd. 32, 2º andar, Praia Shopping, Calhau",
       "addressLocality": "São Luís",
       "addressRegion": "MA",
       "postalCode": "65070-835",
       "addressCountry": "BR"
     },
-    "areaServed": "BR",
+    "areaServed": { "@type": "Country", "name": "Brasil" },
+    "knowsAbout": ["Direito à Saúde", "Planos de saúde", "Direito Militar", "Servidores públicos", "Concursos públicos", "Direito do Consumidor", "Contratos", "Superendividamento"],
+    "employee": [
+      { "@type": "Person", "name": "Walmir de Jesus Moreira Serra Júnior", "jobTitle": "Advogado", "identifier": "OAB/MA 4.182" },
+      { "@type": "Person", "name": "João Vitor Ferreira Moreira Serra", "jobTitle": "Advogado", "identifier": "OAB/MA 31.763", "sameAs": ["https://www.youtube.com/channel/UC1i2CtfxY4VRL4IqHbAFFnQ"] },
+      { "@type": "Person", "name": "Will Ferreira", "jobTitle": "Advogada", "identifier": "OAB/MA 15.763" }
+    ],
     "sameAs": ["https://www.youtube.com/channel/UC1i2CtfxY4VRL4IqHbAFFnQ"]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      { "@type": "Question", "name": "Vocês atendem fora de São Luís?", "acceptedAnswer": { "@type": "Answer", "text": "Sim. Com o processo eletrônico, atuamos em tribunais de todo o Brasil. As reuniões podem ser por videoconferência ou presencialmente no escritório, em São Luís." } },
+      { "@type": "Question", "name": "Como funciona a primeira consulta?", "acceptedAnswer": { "@type": "Answer", "text": "É uma conversa com um advogado do escritório. Você conta o que aconteceu e explicamos os caminhos possíveis e o que é preciso para seguir." } },
+      { "@type": "Question", "name": "Preciso ter todos os documentos para marcar?", "acceptedAnswer": { "@type": "Answer", "text": "Não. Traga o que tiver; na consulta dizemos o que falta." } },
+      { "@type": "Question", "name": "Quanto tempo demora um processo?", "acceptedAnswer": { "@type": "Answer", "text": "Depende do tipo de ação, do tribunal e das particularidades de cada caso. Na consulta explicamos as etapas e o que influencia o tempo." } },
+      { "@type": "Question", "name": "Vou conseguir acompanhar o meu processo?", "acceptedAnswer": { "@type": "Answer", "text": "Sim. Explicamos cada movimentação em linguagem simples, e você fala com o escritório pelo WhatsApp." } },
+      { "@type": "Question", "name": "O que é o Programa Saudações?", "acceptedAnswer": { "@type": "Answer", "text": "É um programa jurídico exibido aos domingos, às 8h, na Band Maranhão, apresentado pelo Dr. João Vitor Moreira Serra." } }
+    ]
   }
   </script>
 </head>
@@ -49,11 +79,12 @@
       <span></span><span></span><span></span>
     </button>
     <nav class="nav" id="nav" aria-label="Principal">
-      <a href="#escritorio">Escritório</a>
+      <a href="#seu-caso">Seu caso</a>
       <a href="#atuacao">Atuação</a>
+      <a href="#escritorio">Escritório</a>
       <a href="#equipe">Equipe</a>
       <a href="#midia">Na Mídia</a>
-      <a href="#contato">Contato</a>
+      <a href="#duvidas">Dúvidas</a>
       <a class="btn btn--contorno btn--peq" href="#contato">Fale conosco</a>
     </nav>
   </div>
@@ -65,13 +96,26 @@
 <section class="hero" id="inicio">
   <div class="hero__painel">
     <div class="hero__texto">
-      <p class="sobretitulo">Ferreira &amp; Moreira Serra</p>
-      <h1>Defesa técnica.<br>Presença em todo o Brasil.</h1>
-      <p class="hero__areas">Direito à Saúde <i>·</i> Direito Militar <i>·</i> Processo Civil</p>
-      <p class="hero__lead">Sediados em São Luís (MA), atuamos em todo o território nacional por meio do processo eletrônico, com atendimento por videoconferência ou presencial.</p>
+      <p class="sobretitulo">Ferreira &amp; Moreira Serra · Advogados Associados</p>
+      <h1>Antes do processo, ouvimos a sua história.</h1>
+      <p class="hero__lead">Somos um escritório de São Luís que cuida de cada caso de perto. Você conversa diretamente com os advogados, entende cada etapa e acompanha tudo, no escritório ou por videoconferência, de qualquer lugar do Brasil.</p>
+
+      <div class="hero__equipe">
+        <ul class="mini-escudos" aria-hidden="true"><li>MS</li><li>JV</li><li>WF</li></ul>
+        <p>Dr. Moreira Serra, Dr. João Vitor e Dra. Will Ferreira<br><span>Direito à Saúde · Militar e Servidores · Cível e Consumidor</span></p>
+      </div>
+
       <div class="hero__acoes">
-        <a class="btn btn--latao" href="#contato">Agendar consulta <span aria-hidden="true">→</span></a>
-        <a class="btn btn--contorno" href="#escritorio">Conheça o escritório</a>
+        <a class="btn btn--latao" href="#seu-caso">Qual é o seu caso? <span aria-hidden="true">→</span></a>
+        <a class="btn btn--contorno" href="https://wa.me/5598984115013" target="_blank" rel="noopener">Falar no WhatsApp</a>
+      </div>
+
+      <div class="atalhos" aria-label="Atalhos para situações comuns">
+        <span>Comece por aqui:</span>
+        <a href="#seu-caso" data-caso="plano-negou">Plano de saúde negou</a>
+        <a href="#seu-caso" data-caso="militar">Sou militar</a>
+        <a href="#seu-caso" data-caso="concurso">Concurso público</a>
+        <a href="#seu-caso" data-caso="apostas">Apostas e dívidas</a>
       </div>
     </div>
   </div>
@@ -92,14 +136,89 @@
     </svg>
     <div class="hero__monograma"><img src="assets/img/logo-fms.png" alt=""></div>
   </div>
-  <p class="hero__rodape">São Luís / MA <i>•</i> Atuação nacional via processo eletrônico</p>
+</section>
+
+<!-- ============ FAIXA NA MÍDIA ============ -->
+<a class="faixa" href="#midia">
+  <span class="faixa__rotulo">Visto na</span>
+  <strong class="faixa__band">Band Maranhão</strong>
+  <span class="faixa__txt">Programa Saudações · domingos, 8h · apresentado pelo Dr. João Vitor Moreira Serra</span>
+  <span class="faixa__link">Assistir aos cortes <span aria-hidden="true">→</span></span>
+</a>
+
+<!-- ============ SEU CASO (triagem) ============ -->
+<section class="secao secao--areia" id="seu-caso">
+  <div class="cont">
+    <div class="triagem__cab">
+      <div>
+        <p class="sobretitulo">01 — Seu caso</p>
+        <h2 class="titulo-secao">Qual é a sua situação?</h2>
+      </div>
+      <p>Toque na opção mais próxima da sua. Mostramos o que é bom saber, quais documentos separar e como falar com a gente.</p>
+    </div>
+    <div class="triagem">
+      <div class="triagem__opcoes" id="triagem-opcoes"></div>
+      <div class="triagem__painel" id="triagem-painel" aria-live="polite">
+        <div class="triagem__vazio">
+          <svg viewBox="0 0 48 56" aria-hidden="true"><path d="M2 2h44v38L24 54 2 40z" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+          <p>Escolha uma situação ao lado<br>para ver as orientações.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ATUAÇÃO ============ -->
+<section class="secao secao--marinho" id="atuacao">
+  <div class="cont">
+    <p class="sobretitulo">02 — Áreas de atuação</p>
+    <h2 class="titulo-secao">Especialidade é profundidade.</h2>
+    <div class="escudos">
+      <article class="escudo">
+        <svg class="escudo__icone" viewBox="0 0 48 48" aria-hidden="true"><path d="M17 6v12a7 7 0 0 0 14 0V6M17 6h-3M31 6h3M24 25v6a8 8 0 0 0 8 8h2a4 4 0 1 0 0-8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M6 40l8-4h10l6 3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        <h3>Direito à Saúde</h3>
+        <p>Defesa de pacientes diante de planos de saúde e do poder público.</p>
+        <ul>
+          <li>Negativa de home care, cirurgias e tratamentos</li>
+          <li>Medicamentos de alto custo</li>
+          <li>Reajustes e cancelamentos abusivos</li>
+          <li>Tutelas de urgência</li>
+        </ul>
+        <a class="escudo__link" href="#seu-caso" data-caso="plano-negou">Entender meu caso →</a>
+      </article>
+      <article class="escudo escudo--destaque">
+        <svg class="escudo__icone" viewBox="0 0 48 48" aria-hidden="true"><path d="M24 5l5 11 12 1-9 8 3 12-11-7-11 7 3-12-9-8 12-1z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M4 22l8 5M44 22l-8 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        <h3>Direito Militar e Servidores Públicos</h3>
+        <p>Atuação nacional em demandas de carreira e remuneração de militares das Forças Armadas e Auxiliares e de servidores.</p>
+        <ul>
+          <li>Auxílio-fardamento, 13º e férias (NPOR, EIPOT, EIC)</li>
+          <li>Promoção, licenciamento e reforma</li>
+          <li>Processos administrativos disciplinares</li>
+          <li>Concursos públicos</li>
+        </ul>
+        <a class="escudo__link" href="#seu-caso" data-caso="militar">Entender meu caso →</a>
+      </article>
+      <article class="escudo">
+        <svg class="escudo__icone" viewBox="0 0 48 48" aria-hidden="true"><path d="M24 4l17 10v20L24 44 7 34V14z M24 4v40 M7 14l34 20 M41 14L7 34" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+        <h3>Cível, Consumidor e Contratos</h3>
+        <p>Contencioso estratégico e consultoria preventiva para pessoas e empresas.</p>
+        <ul>
+          <li>Revisão de contratos e cláusulas abusivas</li>
+          <li>Responsabilidade civil e indenizações</li>
+          <li>Apostas on-line e superendividamento</li>
+          <li>Família e sucessões</li>
+        </ul>
+        <a class="escudo__link" href="#seu-caso" data-caso="contrato">Entender meu caso →</a>
+      </article>
+    </div>
+  </div>
 </section>
 
 <!-- ============ ESCRITÓRIO ============ -->
 <section class="secao secao--areia" id="escritorio">
   <div class="cont escritorio">
     <div class="escritorio__titulo">
-      <p class="sobretitulo">01 — O Escritório</p>
+      <p class="sobretitulo">03 — O Escritório</p>
       <h2>Na ágora, a justiça era pública. Aqui, ela é próxima.</h2>
     </div>
     <div class="escritorio__texto">
@@ -126,63 +245,49 @@
   </div>
 </section>
 
-<!-- ============ ATUAÇÃO ============ -->
-<section class="secao secao--marinho" id="atuacao">
+<!-- ============ COMO FUNCIONA ============ -->
+<section class="secao secao--marinho" id="como-funciona">
   <div class="cont">
-    <p class="sobretitulo">02 — Áreas de atuação</p>
-    <h2 class="titulo-secao">Especialidade é profundidade.</h2>
-    <div class="escudos">
-      <article class="escudo">
-        <svg class="escudo__icone" viewBox="0 0 48 48" aria-hidden="true"><path d="M17 6v12a7 7 0 0 0 14 0V6M17 6h-3M31 6h3M24 25v6a8 8 0 0 0 8 8h2a4 4 0 1 0 0-8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M6 40l8-4h10l6 3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-        <h3>Direito à Saúde</h3>
-        <p>Defesa de pacientes diante de planos de saúde e do poder público.</p>
-        <ul>
-          <li>Negativa de home care, cirurgias e tratamentos</li>
-          <li>Medicamentos de alto custo</li>
-          <li>Reajustes e cancelamentos abusivos</li>
-          <li>Tutelas de urgência</li>
-        </ul>
-        <a class="escudo__link" href="#contato" data-tema="Saúde">Entender meu caso →</a>
-      </article>
-      <article class="escudo escudo--destaque">
-        <svg class="escudo__icone" viewBox="0 0 48 48" aria-hidden="true"><path d="M24 5l5 11 12 1-9 8 3 12-11-7-11 7 3-12-9-8 12-1z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M4 22l8 5M44 22l-8 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-        <h3>Direito Militar e Servidores Públicos</h3>
-        <p>Atuação nacional em demandas de carreira e remuneração de militares das Forças Armadas e Auxiliares e de servidores.</p>
-        <ul>
-          <li>Auxílio-fardamento, 13º e férias (NPOR, EIPOT, EIC)</li>
-          <li>Promoção, licenciamento e reforma</li>
-          <li>Processos administrativos disciplinares</li>
-          <li>Concursos públicos</li>
-        </ul>
-        <a class="escudo__link" href="#contato" data-tema="Militar">Entender meu caso →</a>
-      </article>
-      <article class="escudo">
-        <svg class="escudo__icone" viewBox="0 0 48 48" aria-hidden="true"><path d="M24 4l17 10v20L24 44 7 34V14z M24 4v40 M7 14l34 20 M41 14L7 34" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
-        <h3>Cível, Consumidor e Contratos</h3>
-        <p>Contencioso estratégico e consultoria preventiva para pessoas e empresas.</p>
-        <ul>
-          <li>Revisão de contratos e cláusulas abusivas</li>
-          <li>Responsabilidade civil e indenizações</li>
-          <li>Apostas on-line e superendividamento</li>
-          <li>Família e sucessões</li>
-        </ul>
-        <a class="escudo__link" href="#contato" data-tema="Cível/Empresarial">Entender meu caso →</a>
-      </article>
-    </div>
+    <p class="sobretitulo">04 — Como funciona</p>
+    <h2 class="titulo-secao">Do primeiro contato ao fim do processo.</h2>
+    <ol class="passos">
+      <li>
+        <span class="passos__n">1</span>
+        <h3>Você conta o que aconteceu</h3>
+        <p>Pelo WhatsApp, pelo formulário ou no escritório. Do seu jeito, sem formalidade.</p>
+      </li>
+      <li>
+        <span class="passos__n">2</span>
+        <h3>Analisamos os documentos</h3>
+        <p>Dizemos o que já é suficiente e o que ainda falta reunir.</p>
+      </li>
+      <li>
+        <span class="passos__n">3</span>
+        <h3>Explicamos os caminhos</h3>
+        <p>Possibilidades, riscos e prazos em linguagem clara, antes de qualquer decisão.</p>
+      </li>
+      <li>
+        <span class="passos__n">4</span>
+        <h3>Acompanhamos até o fim</h3>
+        <p>Você é informado a cada etapa, presencialmente ou a distância.</p>
+      </li>
+    </ol>
+    <div class="passos__acao"><a class="btn btn--latao" href="#seu-caso">Começar pelo passo 1 <span aria-hidden="true">→</span></a></div>
   </div>
 </section>
 
 <!-- ============ EQUIPE ============ -->
 <section class="secao secao--areia" id="equipe">
   <div class="cont">
-    <p class="sobretitulo">03 — Equipe</p>
+    <p class="sobretitulo">05 — Equipe</p>
     <h2 class="titulo-secao">Quem cuida do seu caso.</h2>
     <div class="equipe">
-      <!-- data-confirmar: nome e descrição vindos dos mockups; confirmar com o Alexandre (ver CLAUDE.md) -->
-      <article class="pessoa" data-confirmar>
-        <div class="pessoa__foto"><span>WS</span></div>
+      <article class="pessoa">
+        <div class="pessoa__foto"><span>MS</span></div>
         <h3>Walmir de Jesus Moreira Serra Júnior</h3>
-        <p>Processo Civil e Direito à Saúde · Jornalista</p>
+        <!-- data-confirmar: áreas e "Jornalista" vieram dos mockups; confirmar com o Alexandre (ver CLAUDE.md) -->
+        <p data-confirmar>Processo Civil e Direito à Saúde · Jornalista</p>
+        <p class="pessoa__oab">OAB/MA 4.182</p>
       </article>
       <article class="pessoa pessoa--centro">
         <div class="pessoa__foto"><span>JV</span></div>
@@ -190,11 +295,12 @@
         <p>Direito Militar e Administrativo · Professor · Apresentador do Programa Saudações, na Band Maranhão</p>
         <p class="pessoa__oab">OAB/MA 31.763</p>
       </article>
-      <!-- data-confirmar: nome e descrição vindos dos mockups; confirmar com o Alexandre (ver CLAUDE.md) -->
-      <article class="pessoa" data-confirmar>
+      <article class="pessoa">
         <div class="pessoa__foto"><span>WF</span></div>
         <h3>Will Ferreira</h3>
-        <p>Direito à Saúde</p>
+        <!-- data-confirmar: área veio dos mockups; confirmar com o Alexandre (ver CLAUDE.md) -->
+        <p data-confirmar>Direito à Saúde</p>
+        <p class="pessoa__oab">OAB/MA 15.763</p>
       </article>
     </div>
   </div>
@@ -205,10 +311,10 @@
   <div class="cont">
     <div class="midia__cab">
       <div>
-        <p class="sobretitulo">04 — Na Mídia</p>
-        <h2 class="titulo-secao">Direito explicado em 1 minuto.</h2>
+        <p class="sobretitulo">06 — Na Mídia</p>
+        <h2 class="titulo-secao">O que discutimos no programa.</h2>
       </div>
-      <p class="midia__intro">Todo domingo, às 8h, o Dr. João Vitor apresenta na <strong>Band Maranhão</strong> o <strong>Programa Saudações</strong>, um programa jurídico que difunde a cultura jurídica do Maranhão, trata temas técnicos com acessibilidade e honra os nomes que edificaram o nosso Sistema de Justiça. Os cortes, aulas e palestras ficam no canal do YouTube.</p>
+      <p class="midia__intro">Todo domingo, às 8h, o Dr. João Vitor apresenta na <strong>Band Maranhão</strong> o <strong>Programa Saudações</strong>, um programa jurídico que difunde a cultura jurídica do Maranhão, trata temas técnicos com acessibilidade e honra os nomes que edificaram o nosso Sistema de Justiça. Escolha um tema e veja os cortes de cada episódio.</p>
     </div>
 
     <div class="midia">
@@ -217,25 +323,54 @@
           <img alt="" id="player-img">
           <span class="player__play">▶ Assistir</span>
         </button>
-        <p class="player__rotulo">Programa Saudações · Band</p>
+        <p class="player__rotulo" id="player-rotulo">Programa Saudações · Band</p>
         <h3 class="player__titulo" id="player-titulo"></h3>
       </div>
 
       <div class="galeria">
-        <div class="filtros" role="tablist" aria-label="Temas dos vídeos">
-          <button role="tab" aria-selected="true" data-filtro="todos">Todos</button>
-          <button role="tab" aria-selected="false" data-filtro="apostas">Apostas e ludopatia</button>
-          <button role="tab" aria-selected="false" data-filtro="pesca">Seguro-defeso</button>
-          <button role="tab" aria-selected="false" data-filtro="carreiras">Carreiras policiais</button>
-          <button role="tab" aria-selected="false" data-filtro="direito">Direito e sociedade</button>
-        </div>
-        <ul class="cartoes" id="cartoes" aria-live="polite"></ul>
+        <div class="filtros" role="tablist" aria-label="Temas dos vídeos" id="filtros"></div>
+        <div id="episodios" aria-live="polite"></div>
         <div class="galeria__nav">
-          <button type="button" class="seta" data-dir="-1" aria-label="Vídeos anteriores">←</button>
-          <button type="button" class="seta" data-dir="1" aria-label="Próximos vídeos">→</button>
-          <a class="btn btn--latao" href="https://www.youtube.com/channel/UC1i2CtfxY4VRL4IqHbAFFnQ" target="_blank" rel="noopener">Ver todos os vídeos <span aria-hidden="true">→</span></a>
+          <a class="btn btn--latao" href="https://www.youtube.com/channel/UC1i2CtfxY4VRL4IqHbAFFnQ" target="_blank" rel="noopener">Ver o canal no YouTube <span aria-hidden="true">→</span></a>
         </div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DÚVIDAS ============ -->
+<section class="secao secao--areia" id="duvidas">
+  <div class="cont duvidas">
+    <div>
+      <p class="sobretitulo">07 — Dúvidas frequentes</p>
+      <h2 class="titulo-secao">Antes de falar com a gente.</h2>
+      <p class="duvidas__sub">Não encontrou a sua dúvida? Pergunte direto pelo <a href="https://wa.me/5598984115013" target="_blank" rel="noopener">WhatsApp</a>.</p>
+    </div>
+    <div class="faq">
+      <details>
+        <summary>Vocês atendem fora de São Luís?</summary>
+        <p>Sim. Com o processo eletrônico, atuamos em tribunais de todo o Brasil. As reuniões podem ser por videoconferência ou presencialmente no escritório, em São Luís.</p>
+      </details>
+      <details>
+        <summary>Como funciona a primeira consulta?</summary>
+        <p>É uma conversa com um advogado do escritório. Você conta o que aconteceu e explicamos os caminhos possíveis e o que é preciso para seguir.</p>
+      </details>
+      <details>
+        <summary>Preciso ter todos os documentos para marcar?</summary>
+        <p>Não. Traga o que tiver; na consulta dizemos o que falta. Na seção <a href="#seu-caso">Seu caso</a> você vê os documentos mais comuns para cada situação.</p>
+      </details>
+      <details>
+        <summary>Quanto tempo demora um processo?</summary>
+        <p>Depende do tipo de ação, do tribunal e das particularidades de cada caso. Na consulta explicamos as etapas e o que influencia o tempo.</p>
+      </details>
+      <details>
+        <summary>Vou conseguir acompanhar o meu processo?</summary>
+        <p>Sim. Explicamos cada movimentação em linguagem simples, e você fala com o escritório pelo WhatsApp.</p>
+      </details>
+      <details>
+        <summary>O que é o Programa Saudações?</summary>
+        <p>É um programa jurídico exibido aos domingos, às 8h, na Band Maranhão, apresentado pelo Dr. João Vitor Moreira Serra. Os cortes estão na seção <a href="#midia">Na Mídia</a>.</p>
+      </details>
     </div>
   </div>
 </section>
@@ -307,7 +442,7 @@
     <div class="rodape__topo">
       <img class="rodape__logo" src="assets/img/logo-fms.png" alt="Ferreira & Moreira Serra Advogados Associados" width="1522" height="657">
       <nav aria-label="Rodapé">
-        <a href="#escritorio">O Escritório</a><a href="#atuacao">Atuação</a><a href="#equipe">Equipe</a><a href="#midia">Na Mídia</a><a href="#contato">Contato</a>
+        <a href="#seu-caso">Seu caso</a><a href="#atuacao">Atuação</a><a href="#escritorio">O Escritório</a><a href="#equipe">Equipe</a><a href="#midia">Na Mídia</a><a href="#duvidas">Dúvidas</a><a href="#contato">Contato</a>
       </nav>
     </div>
     <div class="rodape__cols">
@@ -331,7 +466,7 @@
         </p>
       </div>
     </div>
-    <p class="rodape__legal">© <span id="ano">2026</span> Ferreira &amp; Moreira Serra Advogados Associados · Responsável técnico: João Vitor Ferreira Moreira Serra — OAB/MA 31.763 · Atuação nacional via processo eletrônico.<br>Conteúdo de caráter exclusivamente informativo, nos termos do Provimento 205/2021 do Conselho Federal da OAB.</p>
+    <p class="rodape__legal">© <span id="ano">2026</span> Ferreira &amp; Moreira Serra Advogados Associados · Walmir de Jesus Moreira Serra Júnior — OAB/MA 4.182 · João Vitor Ferreira Moreira Serra — OAB/MA 31.763 · Will Ferreira — OAB/MA 15.763 · Atuação nacional via processo eletrônico.<br>Conteúdo de caráter exclusivamente informativo, nos termos do Provimento 205/2021 do Conselho Federal da OAB.</p>
   </div>
 </footer>
 
@@ -340,6 +475,8 @@
 </a>
 
 <script src="assets/js/videos.js"></script>
+<script src="assets/js/curadoria.js"></script>
+<script src="assets/js/triagem.js"></script>
 <script src="assets/js/main.js"></script>
 </body>
 </html>

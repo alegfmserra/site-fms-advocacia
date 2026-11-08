@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "site-fms",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["scripts/servir.js"],
+      "port": 4321
+    }
+  ]
+}

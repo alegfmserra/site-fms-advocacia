@@ -21,7 +21,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/style.css?v=20261108b">
+  <link rel="stylesheet" href="assets/css/style.css?v=20261109a">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -68,6 +68,7 @@
 <body>
 
 <a class="pular" href="#conteudo">Pular para o conteúdo</a>
+<div class="progresso" aria-hidden="true"><span></span></div>
 
 <!-- ============ CABEÇALHO ============ -->
 <header class="topo" id="topo">
@@ -94,6 +95,7 @@
 
 <!-- ============ HERO ============ -->
 <section class="hero" id="inicio">
+  <canvas class="hero__canvas" aria-hidden="true"></canvas>
   <div class="hero__painel">
     <div class="hero__texto">
       <p class="sobretitulo">Ferreira &amp; Moreira Serra · Advogados Associados</p>
@@ -126,10 +128,11 @@
         </radialGradient>
       </defs>
       <circle cx="300" cy="300" r="300" fill="url(#g-brilho)"/>
-      <path d="M90 60h420v390L300 590 90 450z" fill="none" stroke="#B89B6A" stroke-opacity=".25"/>
-      <path d="M140 110h320v315L300 530 140 425z" fill="none" stroke="#B89B6A" stroke-opacity=".45"/>
-      <path d="M190 160h220v240L300 470 190 400z" fill="none" stroke="url(#g-latao)" stroke-width="2"/>
+      <path pathLength="1" d="M90 60h420v390L300 590 90 450z" fill="none" stroke="#B89B6A" stroke-opacity=".25"/>
+      <path pathLength="1" d="M140 110h320v315L300 530 140 425z" fill="none" stroke="#B89B6A" stroke-opacity=".45"/>
+      <path pathLength="1" d="M190 160h220v240L300 470 190 400z" fill="none" stroke="url(#g-latao)" stroke-width="2"/>
     </svg>
+    <div class="hero__reflexo"></div>
     <div class="hero__monograma"><img src="assets/img/logo-fms.png" alt=""></div>
   </div>
 </section>
@@ -161,6 +164,9 @@
     </div>
   </div>
 </section>
+
+<!-- ============ LETREIRO (decorativo) ============ -->
+<div class="letreiro" aria-hidden="true"><div class="letreiro__trilho"><span>Direito à Saúde</span><i></i><span class="cheio">Direito Militar</span><i></i><span>Servidores Públicos</span><i></i><span class="cheio">Concursos</span><i></i><span>Consumidor</span><i></i><span class="cheio">Contratos</span><i></i><span>Superendividamento</span><i></i><span>Direito à Saúde</span><i></i><span class="cheio">Direito Militar</span><i></i><span>Servidores Públicos</span><i></i><span class="cheio">Concursos</span><i></i><span>Consumidor</span><i></i><span class="cheio">Contratos</span><i></i><span>Superendividamento</span><i></i></div></div>
 
 <!-- ============ ATUAÇÃO ============ -->
 <section class="secao secao--marinho" id="atuacao">
@@ -244,6 +250,7 @@
   <div class="cont">
     <p class="sobretitulo">04 — Como funciona</p>
     <h2 class="titulo-secao">Do primeiro contato ao fim do processo.</h2>
+    <div class="passos__barra" aria-hidden="true"><span></span></div>
     <ol class="passos">
       <li>
         <span class="passos__n">1</span>
@@ -297,6 +304,17 @@
         <p class="pessoa__oab">OAB/MA 15.763</p>
       </article>
     </div>
+  </div>
+</section>
+
+<!-- ============ CINEMA (cortes em movimento) ============ -->
+<section class="cinema" aria-label="Programa Saudações na Band Maranhão">
+  <div class="cinema__parede" id="parede" aria-hidden="true"></div>
+  <div class="cont cinema__texto">
+    <p class="sobretitulo">No ar todo domingo · 8h</p>
+    <p class="cinema__titulo">Programa<br>Saudações</p>
+    <p class="cinema__sub">Band Maranhão · com o Dr. João Vitor Moreira Serra</p>
+    <a class="btn btn--latao" href="#midia">Assistir aos cortes <span aria-hidden="true">→</span></a>
   </div>
 </section>
 
@@ -376,6 +394,15 @@
       <div class="contato__logo" aria-hidden="true"><img src="assets/img/logo-fms.png" alt=""></div>
       <h2>Defenda seus direitos.</h2>
       <p>Agende uma consulta com a nossa equipe técnica.</p>
+      <!-- Google Agenda: colar em data-url o link da página de agendamento.
+           Melhor: Google Agenda → Agendamento → Compartilhar → "Incorporar no site" → copiar só o endereço do src
+           (https://calendar.google.com/calendar/appointments/schedules/...?gv=true): abre numa janela dentro do site.
+           O link curto (https://calendar.app.google/...) também funciona, mas abre em nova aba.
+           Enquanto data-url estiver vazio, o botão não aparece. -->
+      <div class="contato__agenda" id="agenda-google" data-url="" hidden>
+        <button class="btn btn--latao" type="button">Escolher horário na agenda <span aria-hidden="true">→</span></button>
+        <p>Veja os horários livres e marque direto, sem precisar esperar resposta.</p>
+      </div>
       <ul class="contato__dados">
         <li><a href="https://wa.me/5598984115013" target="_blank" rel="noopener">(98) 98411-5013 · WhatsApp</a></li>
         <li><a href="mailto:vitorms@moreiraserraadv.com.br">vitorms@moreiraserraadv.com.br</a></li>
@@ -464,13 +491,19 @@
   </div>
 </footer>
 
+<dialog class="modal-agenda" id="modal-agenda" aria-label="Agendar consulta">
+  <div class="modal-agenda__cab"><strong>Escolha um horário</strong><button type="button" class="modal-agenda__fechar" aria-label="Fechar">×</button></div>
+  <div class="modal-agenda__corpo"></div>
+</dialog>
+
 <a class="whats-flutuante" href="https://wa.me/5598984115013" target="_blank" rel="noopener" aria-label="Conversar no WhatsApp">
   <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm4.5 12.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.3 2.2 2.2 0 0 0 .2-1.3c-.1-.1-.3-.2-.5-.3z"/></svg>
 </a>
 
-<script src="assets/js/videos.js?v=20261108b"></script>
-<script src="assets/js/curadoria.js?v=20261108b"></script>
-<script src="assets/js/triagem.js?v=20261108b"></script>
-<script src="assets/js/main.js?v=20261108b"></script>
+<script src="assets/js/videos.js?v=20261109a"></script>
+<script src="assets/js/curadoria.js?v=20261109a"></script>
+<script src="assets/js/triagem.js?v=20261109a"></script>
+<script src="assets/js/main.js?v=20261109a"></script>
+<script src="assets/js/movimento.js?v=20261109a"></script>
 </body>
 </html>

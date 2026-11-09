@@ -696,3 +696,53 @@ i { font-style: normal; color: var(--latao); }
 @media (prefers-reduced-motion: reduce) {
   .hero__reflexo::before, .cinema__col { animation: none !important; }
 }
+
+/* ---------- Na Mídia: episódios completos (canal do programa) ---------- */
+.completos { margin-bottom: clamp(48px, 6vw, 72px); }
+.completos__cab { display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; flex-wrap: wrap; margin-bottom: 18px; }
+.completos__titulo { font-size: clamp(24px, 2.6vw, 32px); margin-top: 6px; }
+.cortes__cab { margin-bottom: 18px; padding-top: clamp(36px, 4vw, 52px); border-top: 1px solid var(--linha-clara); }
+.completos__trilho {
+  list-style: none; margin: 0; padding: 0 0 10px;
+  display: grid; grid-auto-flow: column; grid-auto-columns: minmax(280px, 31%); gap: 20px;
+  overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: thin; scrollbar-color: var(--latao) transparent;
+}
+.completo { scroll-snap-align: start; }
+.completo button { display: block; width: 100%; padding: 0; border: 0; background: none; font-family: var(--sans); color: var(--branco); text-align: left; cursor: pointer; }
+.completo__capa { position: relative; display: block; aspect-ratio: 16 / 9; overflow: hidden; border-radius: 10px; background: var(--marinho); outline: 1px solid rgba(184,155,106,.25); }
+.completo__capa img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s cubic-bezier(.2,.7,.2,1), filter .4s; filter: brightness(.88); }
+.completo__capa::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 55%, rgba(20,31,49,.75)); }
+.completo button:hover .completo__capa img { transform: scale(1.07); filter: brightness(1); }
+.completo__play {
+  position: absolute; left: 50%; top: 50%; z-index: 1; transform: translate(-50%, -50%) scale(.85); opacity: 0;
+  width: 58px; height: 64px; display: grid; place-items: center; padding: 0 0 8px 4px;
+  background: var(--latao); color: var(--profundo); font-size: 20px; clip-path: var(--escudo);
+  transition: opacity .3s, transform .3s;
+}
+.completo button:hover .completo__play, .completo button:focus-visible .completo__play { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+.completo__selo { position: absolute; left: 12px; top: 12px; z-index: 1; padding: 4px 10px; font-size: 12px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; background: var(--latao); color: var(--profundo); border-radius: 4px; }
+.completo__txt { display: block; padding-top: 14px; }
+.completo__txt small { display: block; font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: var(--latao); }
+.completo__txt strong { display: block; margin-top: 6px; font: 500 20px/1.25 var(--serif); }
+.completo__conv { display: block; margin-top: 6px; font-size: 14px; color: rgba(246,242,234,.65); }
+
+/* Janela de vídeo */
+.modal-video { width: min(1100px, 94vw); padding: 0; border: 0; border-radius: 14px; overflow: hidden; background: #000; color: var(--branco); }
+.modal-video::backdrop { background: rgba(10,16,26,.82); backdrop-filter: blur(5px); }
+.modal-video__cab { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 10px 16px; background: var(--profundo); font: 500 17px var(--serif); }
+.modal-video__tela { aspect-ratio: 16 / 9; }
+.modal-video__tela iframe { width: 100%; height: 100%; border: 0; display: block; }
+
+/* Equipe: entrevista no programa */
+.pessoa__video {
+  margin-top: 14px; padding: 8px 16px; border-radius: 999px; cursor: pointer;
+  font: 600 14px var(--sans); color: var(--marinho); background: transparent; border: 1px solid rgba(30,44,66,.35);
+  transition: background .2s, color .2s;
+}
+.pessoa__video:hover { background: var(--marinho); color: var(--branco); }
+.cinema__sub span { font-size: 15px; color: rgba(246,242,234,.55); }
+
+@media (max-width: 860px) {
+  .completos__trilho { grid-auto-columns: 82%; }
+  .completos__cab .seta { display: none; }
+}

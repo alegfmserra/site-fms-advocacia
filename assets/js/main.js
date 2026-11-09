@@ -395,3 +395,85 @@
   const ano = $("#ano");
   if (ano) ano.textContent = new Date().getFullYear();
 })();
+
+/* ---------- Episódios completos (canal do programa) + janela de vídeo ---------- */
+(() => {
+  "use strict";
+  const $ = (s, el = document) => el.querySelector(s);
+  const modal = $("#modal-video");
+  const tela = modal && $(".modal-video__tela", modal);
+
+  function abrirVideo(id, titulo) {
+    if (!modal || typeof modal.showModal !== "function") {
+      window.open(`https://www.youtube.com/watch?v=${id}`, "_blank", "noopener");
+      return;
+    }
+    tela.innerHTML = "";
+    const ifr = document.createElement("iframe");
+    ifr.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0`;
+    ifr.title = titulo || "Programa Saudações";
+    ifr.allow = "accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture";
+    ifr.allowFullscreen = true;
+    tela.append(ifr);
+    $("#modal-video-titulo").textContent = titulo || "";
+    modal.showModal();
+  }
+  if (modal) {
+    const fechar = () => { modal.close(); tela.innerHTML = ""; };
+    $(".modal-agenda__fechar", modal).addEventListener("click", fechar);
+    modal.addEventListener("click", (e) => { if (e.target === modal) fechar(); });
+    modal.addEventListener("close", () => { tela.innerHTML = ""; }); // Esc também para o vídeo
+    modal.addEventListener("cancel", () => { tela.innerHTML = ""; });
+  }
+  document.querySelectorAll("[data-video]").forEach((b) => b.addEventListener("click", () => abrirVideo(b.dataset.video, b.dataset.titulo)));
+
+  const trilho = $("#completos");
+  const CUR = window.CURADORIA || {};
+  const excluir = CUR.excluir ? new RegExp(CUR.excluir, "i") : null;
+  const lista = (Array.isArray(window.COMPLETOS) ? window.COMPLETOS : []).filter((e) => !(excluir && excluir.test(e.titulo)));
+  if (!trilho || !lista.length) { $(".completos")?.setAttribute("hidden", ""); return; }
+  const fmt = (iso) => { const [a, m, d] = iso.split("-"); return `${d}/${m}/${a}`; };
+
+  lista.forEach((e, i) => {
+    const li = document.createElement("li");
+    li.className = "completo";
+    const b = document.createElement("button");
+    b.type = "button";
+    b.setAttribute("aria-label", `Assistir ao episódio: ${e.titulo}`);
+    const capa = document.createElement("span");
+    capa.className = "completo__capa";
+    const img = document.createElement("img");
+    img.loading = "lazy";
+    img.alt = "";
+    img.src = `https://i.ytimg.com/vi/${e.id}/maxresdefault.jpg`;
+    img.addEventListener("error", () => { if (!img.src.includes("hqdefault")) img.src = `https://i.ytimg.com/vi/${e.id}/hqdefault.jpg`; }, { once: true });
+    capa.append(img);
+    const play = document.createElement("span");
+    play.className = "completo__play";
+    play.setAttribute("aria-hidden", "true");
+    play.textContent = "▶";
+    capa.append(play);
+    if (i === 0) { const sel = document.createElement("span"); sel.className = "completo__selo"; sel.textContent = "Mais recente"; capa.append(sel); }
+    const txt = document.createElement("span");
+    txt.className = "completo__txt";
+    const data = document.createElement("small");
+    data.textContent = e.data ? fmt(e.data) : "Programa Saudações";
+    const tit = document.createElement("strong");
+    tit.textContent = e.titulo;
+    txt.append(data, tit);
+    if (e.convidado) {
+      const conv = document.createElement("span");
+      conv.className = "completo__conv";
+      const papel = CUR.convidados && CUR.convidados[e.convidado];
+      conv.textContent = papel ? `${e.convidado} · ${papel}` : e.convidado;
+      txt.append(conv);
+    }
+    b.append(capa, txt);
+    b.addEventListener("click", () => abrirVideo(e.id, `${e.titulo}${e.convidado ? " · " + e.convidado : ""}`));
+    li.append(b);
+    trilho.append(li);
+  });
+  document.querySelectorAll("[data-trilho]").forEach((s) => s.addEventListener("click", () => {
+    trilho.scrollBy({ left: Number(s.dataset.trilho) * trilho.clientWidth * 0.85, behavior: "smooth" });
+  }));
+})();

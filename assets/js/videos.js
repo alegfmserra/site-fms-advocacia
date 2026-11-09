@@ -1,4 +1,4 @@
-// Gerado por scripts/atualizar-videos.js em 2026-11-08. Fonte: youtube.com/channel/UC1i2CtfxY4VRL4IqHbAFFnQ
+// Gerado por scripts/atualizar-videos.js em 2026-11-09. Fontes: youtube.com/channel/UC1i2CtfxY4VRL4IqHbAFFnQ e youtube.com/@programasaudacoes
 // NÃO editar à mão: o que aparece no site é decidido em assets/js/curadoria.js.
 window.EPISODIOS = [
   {
@@ -352,6 +352,14 @@ window.EPISODIOS = [
 ];
 window.SHORTS = [
   {
+    "id": "6NWwuAI7bkg",
+    "titulo": "Flagrante forjado: Quando a situação é ilícita"
+  },
+  {
+    "id": "XfR315bimYI",
+    "titulo": "Da escrivania à delegacia: Experiência que transforma"
+  },
+  {
     "id": "bC5ECZ6Cz7g",
     "titulo": "Punir sem abrir mão dos direitos fundamentais"
   },
@@ -534,13 +542,103 @@ window.SHORTS = [
   {
     "id": "PpFNsBg3cNI",
     "titulo": "Segurança Pública e o Direito Digital no Crime"
+  }
+];
+window.COMPLETOS = [
+  {
+    "id": "1xftiSqvBgE",
+    "titulo": "Investigação e Flagrante: os Limites da Polícia",
+    "convidado": "Cleopas Santos",
+    "data": "2026-11-08"
   },
   {
-    "id": "nCbRCgtUnpQ",
-    "titulo": "Concurso para Polícia Civil do Maranhão"
+    "id": "d-gLy8g2-jU",
+    "titulo": "Seguro-Defeso 2026: Novas regras e prazos obrigatórios",
+    "convidado": "Conor Farias",
+    "data": "2026-09-06"
   },
   {
-    "id": "El2nso0MuNI",
-    "titulo": "Simule a Prova Exatamente Como Ela É"
+    "id": "xW8rMrwlqOk",
+    "titulo": "Segurança Pública e concursos: o caminho até a posse",
+    "convidado": "Gabriel Tersi",
+    "data": "2026-09-06"
+  },
+  {
+    "id": "mFDvOMdKKwo",
+    "titulo": "Compliance na prática",
+    "convidado": "Nísia Seguins",
+    "data": "2026-08-30"
+  },
+  {
+    "id": "eoGYliqNYVA",
+    "titulo": "Sistema de Ouvidoria e Justiça de Proximidade",
+    "convidado": "Josane Braga",
+    "data": "2026-08-23"
+  },
+  {
+    "id": "CzTgxfdixmQ",
+    "titulo": "Direito, Gestão e Segurança Portuária",
+    "convidado": "Ayrton Fernandes",
+    "data": "2026-08-16"
+  },
+  {
+    "id": "NIeiTpGgHK8",
+    "titulo": "Especial de Dia dos Pais - Acesso à Justiça",
+    "convidado": "Moreira Serra Júnior",
+    "data": "2026-08-09"
+  },
+  {
+    "id": "XbztTBcVCfY",
+    "titulo": "Experiência do Cliente e Sistema de Justiça",
+    "convidado": "Fernando Coelho",
+    "data": "2026-08-02"
+  },
+  {
+    "id": "AsGEmnzMsJI",
+    "titulo": "Comunicação e oratória: Diferencial ou requisito básico?",
+    "convidado": "Marco Aurélio",
+    "data": "2026-07-26"
+  },
+  {
+    "id": "fzMyyCtNHYg",
+    "titulo": "Advocacia pública: papel social e prerrogativas",
+    "convidado": "Valdênio Caminha",
+    "data": "2026-07-19"
+  },
+  {
+    "id": "od6-MNZAgJg",
+    "titulo": "Da toga à tribuna: Os desafios de julgar e defender",
+    "convidado": "Roberto de Paula",
+    "data": "2026-07-12"
+  },
+  {
+    "id": "m5JzSxfeOb4",
+    "titulo": "A NR-01 e o novo panorama da Segurança no Trabalho",
+    "convidado": "Kleber José Moreira",
+    "data": "2026-07-05"
+  },
+  {
+    "id": "6BEPoYDJtoQ",
+    "titulo": "Inteligência Artificial, inovação jurídica e ética",
+    "convidado": "Felipe Damous",
+    "data": "2026-06-28"
+  },
+  {
+    "id": "yRwicwq7MQs",
+    "titulo": "A Construção das Decisões na Justiça Militar do Maranhão",
+    "convidado": "Felipe Santana",
+    "data": "2026-06-20"
+  },
+  {
+    "id": "7YlNWbPzW1g",
+    "titulo": "Direito Desportivo e Copa do Mundo",
+    "convidado": "Dr. Eduardo Duailibe",
+    "data": "2026-06-14"
+  },
+  {
+    "id": "jk0ksSiT2gA",
+    "titulo": "Golpe do Falso Advogado e Criminalização da Advocacia",
+    "convidado": "Dr. Kaio Saraiva",
+    "data": "2026-06-07"
   }
 ];

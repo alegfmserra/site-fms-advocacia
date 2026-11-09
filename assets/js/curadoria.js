@@ -17,6 +17,19 @@ window.CURADORIA = {
     PLHIi0FBw0T5dMqEYRm0JlNYk14IlQ0DH5: "Informação jurídica",
   },
 
+  // Função dos convidados dos episódios completos, conforme as legendas do Instagram @programasaudacoes
+  // (lidas em 2026-11-09). Só entra o que está escrito lá; convidado sem função conhecida aparece só com o nome.
+  convidados: {
+    "Dr. Kaio Saraiva": "Presidente da OAB/MA",
+    "Josane Braga": "Juíza de Direito e Ouvidora da Mulher do TJMA",
+    "Felipe Damous": "Juiz de Direito",
+    "Roberto de Paula": "Advogado, juiz aposentado e professor",
+    "Kleber José Moreira": "Advogado, especialista em Direito do Trabalho",
+    "Ayrton Fernandes": "Advogado e presidente do SINDMARIN",
+    "Fernando Coelho": "Diretor do Instituto de Experiência do Cliente",
+    "Moreira Serra Júnior": "Advogado do escritório",
+  },
+
   temas: [
     {
       id: "militar",

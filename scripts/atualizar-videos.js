@@ -11,6 +11,7 @@ const fs = require("fs");
 const path = require("path");
 
 const CANAL = "UC1i2CtfxY4VRL4IqHbAFFnQ";
+const CANAL_PROGRAMA = "programasaudacoes"; // canal do Programa Saudações (episódios completos)
 const UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/130 Safari/537.36";
 const CAB = { headers: { "User-Agent": UA, "Accept-Language": "pt-BR", Cookie: "CONSENT=YES+1" } };
 
@@ -111,15 +112,31 @@ function limparTitulo(t) {
     if (id && titulo && !shorts.some((x) => x.id === id)) shorts.push({ id, titulo: limparTitulo(titulo) });
   });
 
+  // 3) Episódios completos — canal do próprio programa (@programasaudacoes).
+  // Só entram os episódios no formato "Tema | Convidado | SAUDAÇÕES (dd/mm/aaaa)", que são os de domingo
+  // apresentados pelo Dr. João Vitor. A "Temporada Especial" (outros apresentadores) fica de fora.
+  const pv = dadosIniciais(await html(`https://www.youtube.com/@${CANAL_PROGRAMA}/videos`));
+  const completos = [];
+  percorrer(pv, (o) => {
+    const l = o.lockupViewModel;
+    if (!l || l.contentType !== "LOCKUP_CONTENT_TYPE_VIDEO") return;
+    const titulo = l.metadata?.lockupMetadataViewModel?.title?.content || "";
+    if (!/\|\s*SAUDA[ÇC][ÕO]ES\s*\(\d{2}\/\d{2}\/\d{4}\)/i.test(titulo) || /temporada especial/i.test(titulo)) return;
+    if (completos.some((x) => x.id === l.contentId)) return;
+    const e = lerTituloEpisodio(titulo);
+    completos.push({ id: l.contentId, titulo: e.tema, convidado: e.convidado, data: e.data });
+  });
+
   const destino = path.join(__dirname, "..", "assets", "js", "videos.js");
   const hoje = new Date().toISOString().slice(0, 10);
   const js =
-    `// Gerado por scripts/atualizar-videos.js em ${hoje}. Fonte: youtube.com/channel/${CANAL}\n` +
+    `// Gerado por scripts/atualizar-videos.js em ${hoje}. Fontes: youtube.com/channel/${CANAL} e youtube.com/@${CANAL_PROGRAMA}\n` +
     `// NÃO editar à mão: o que aparece no site é decidido em assets/js/curadoria.js.\n` +
     `window.EPISODIOS = ${JSON.stringify(episodios, null, 2)};\n` +
-    `window.SHORTS = ${JSON.stringify(shorts, null, 2)};\n`;
+    `window.SHORTS = ${JSON.stringify(shorts, null, 2)};\n` +
+    `window.COMPLETOS = ${JSON.stringify(completos, null, 2)};\n`;
   fs.writeFileSync(destino, js, "utf8");
-  console.log(`${episodios.length} episódios e ${shorts.length} shorts gravados em ${destino}`);
+  console.log(`${episodios.length} episódios, ${shorts.length} shorts e ${completos.length} episódios completos gravados em ${destino}`);
 })().catch((e) => {
   console.error(e.message);
   process.exit(1);

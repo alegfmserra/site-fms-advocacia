@@ -52,7 +52,7 @@ node scripts/atualizar-videos.js
 ## Formulário e botões sem canal configurado
 
 - Com `contato.js` vazio: botões de WhatsApp somem (ou viram link para `#contato`), os dados de contato mostram "WhatsApp e e-mail de contato: em breve", e o formulário monta a mensagem e oferece **Copiar mensagem**. Com `whatsapp` preenchido, tudo volta a abrir o WhatsApp; só com `email`, o formulário abre o e-mail (mailto).
-- O histórico do git anterior a 2026-11-15 ainda contém o e-mail e o telefone antigos; para apagar de vez seria preciso reescrever o histórico do repositório (decisão do Alexandre).
+- Histórico do git **reiniciado em 2026-11-16** (um único commit) para apagar os dados pessoais dos commits antigos. Uma cópia do histórico anterior ficou só na máquina do Alexandre, no branch local `backup-historico-20261116` — **nunca enviar esse branch ao GitHub**.
 
 ## Agendamento pelo Google Agenda
 

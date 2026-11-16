@@ -1,0 +1,10 @@
+# Mockups e originais da logomarca: referência local, não publicar
+Telas Sugeridas/
+Logomarca/
+
+# Sistema / editor
+node_modules/
+.DS_Store
+Thumbs.db
+desktop.ini
+.claude/settings.local.json

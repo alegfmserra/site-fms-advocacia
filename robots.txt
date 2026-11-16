@@ -1,0 +1,6 @@
+# Só passa a valer quando o site estiver na raiz de um domínio próprio
+# (no endereço github.io/site-fms-advocacia o Google lê o robots.txt de alegfmserra.github.io).
+User-agent: *
+Allow: /
+
+Sitemap: https://alegfmserra.github.io/site-fms-advocacia/sitemap.xml

@@ -97,6 +97,7 @@ node scripts/atualizar-videos.js
 1. **Blog / Artigos** — PRÓXIMA PRIORIDADE. Seção de artigos para ganhar cliques no Google: uma página por artigo (HTML estático com título, descrição, data, autor e dados estruturados `Article`), lista em `/artigos/`, link no menu e no sitemap. Pauta pronta em `PAUTA-ARTIGOS.md`. Texto só entra assinado e revisado por advogado do escritório (regra 1).
 2. **Vídeo de fundo da capa** — o escritório tem os termos de uso das imagens da Band (confirmado em 2026-11-09). Recorte curto a partir dos **arquivos originais** (não baixar do YouTube); o encaixe já está pronto (ver "Capa com vídeo ou foto de fundo"). A faixa Cinema foi retirada em 2026-11-15 para encurtar a página.
 3. **Agendamento pelo Google Agenda** — viável (ver seção acima); fica para depois.
+4. **Hub FMS (área interna)** — decidido em 2026-11-17: painel próprio para o escritório, com 2 gestores (Alexandre e Dr. Vitor), advogados e parceiros convidados; módulos de processos, prazos/audiências, financeiro, prospecção, conversão, modelos, equipe e dashboards. É um sistema de verdade (banco + login por perfil + arquivos), não cabe no site estático. Protótipo v0.1 (12 telas) em `Telas Sugeridas/painel-interno-prototipo.html` e `Telas Sugeridas/Hub-FMS-prototipo-painel-interno.pdf` (não publicados); rascunho com o PDF no Gmail do Alexandre. Pendente: decisão Hub próprio × sistema pronto, lista de parceiros e política de retenção; depois, protótipo navegável da Fase 1.
 
 ## Pendências a confirmar com o Alexandre
 

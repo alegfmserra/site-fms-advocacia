@@ -33,6 +33,23 @@
 | `Telas Sugeridas/` | Mockups de referência (Gemini). **Não publicados** (no `.gitignore`). |
 | `Logomarca/` | Arquivos originais da logomarca (no `.gitignore`). |
 
+## Skills de design e vídeo (instaladas em 2026-11-18, pedido do Alexandre)
+
+Instaladas as 5 do e-book "5 skills pra vídeo bonito" (todas de código aberto; nada vai para o GitHub — `.claude/skills/`, `.claude/agents/`, `.impeccable/` e `skills-lock.json` estão no `.gitignore`):
+
+| Skill | Onde | Como usar | Serve para |
+|---|---|---|---|
+| **Impeccable** (pbakaus/impeccable, Apache 2.0) | `.claude/skills/impeccable` + binário em `~/.impeccable/bin` | `/impeccable critique`, `audit`, `polish`, `animate`, `typeset`… · detector: `npx impeccable detect index.html assets/css/style.css` | revisão e refino de design do site |
+| **Taste Skill** (Leonxlnx/taste-skill, MIT) | `.claude/skills/design-taste-frontend` | skill `design-taste-frontend` (confere a página no Chrome headless em 4 larguras) | checagem de contraste, alinhamento e altura das seções |
+| **HyperFrames** (heygen-com, Apache 2.0) | `~/.claude/skills/hyperframes*` (global) | skills `hyperframes`, `hyperframes-cli`, `hyperframes-registry`, `media-use` | motion em HTML renderizado em MP4 (legendas, títulos, cortes do programa) |
+| **Remotion** (remotion-dev/skills) | `.claude/skills/remotion-*` | `/remotion-best-practices` e irmãs | vídeo em código (contador, gráfico); grátis para empresa de até 3 pessoas |
+| **video-use** (browser-use, MIT) | `~/Developer/video-use` → junction em `~/.claude/skills/video-use`; Python 3.12 em `.venv` | skill `video-use`; `helpers/transcribe.py` cai para **faster-whisper local** (`helpers/transcribe_whisper.py`) quando não há chave da ElevenLabs | cortar pausas e erros, legendar vídeos gravados |
+
+- Decisão: transcrição **local** (Whisper), sem chave de API nem envio de áudio a terceiros. Primeiro uso baixa o modelo `small` (~500 MB).
+- O detector do Impeccable considera os rótulos numerados das seções ("01 — Atuação…") e o sobretítulo acima do título como padrão genérico; o Alexandre ainda não decidiu se mantém.
+- **Branch `prototipo-polimento`** (não publicada, sem push): polimento (escala de títulos, contraste, ritmo) + camada de motion (capa que sela ao rolar, mapa desenhado pela rolagem, escudos que abrem pelo V, pílula nos chips, botões magnéticos, cursor de latão). Comparação em `Telas Sugeridas/polimento/antes-depois.html`. Aguardando o Alexandre aprovar, vetar itens ou pedir ajustes antes do merge na `main`.
+- Aviso de teste: no navegador embutido do app, a capa pode aparecer vazia até a primeira rolagem (artefato da emulação); no Chrome headless e no Chrome normal renderiza certo.
+
 ## Comandos
 
 ```bash

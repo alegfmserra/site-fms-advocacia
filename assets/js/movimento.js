@@ -285,3 +285,97 @@
     });
   }
 })();
+
+/* ---------- MOTION 2026-11-18: capa que sela, mapa pela rolagem, listas em sequência, pílulas, magnético, cursor ---------- */
+(() => {
+  "use strict";
+  const $ = (s, el = document) => el.querySelector(s);
+  const $$ = (s, el = document) => [...el.querySelectorAll(s)];
+  if (!document.documentElement.classList.contains("anima") || location.search.includes("nomotion")) return;
+  const mouse = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+  const porQuadro = (fn) => { let pedido = 0; return () => { if (pedido) return; pedido = requestAnimationFrame(() => { pedido = 0; fn(); }); }; };
+
+  /* Capa sela ao rolar; mapa se desenha com a rolagem */
+  const hero = $(".hero");
+  const mapa = $(".brasil__mapa");
+  const rolar = porQuadro(() => {
+    const y = window.scrollY, vh = window.innerHeight;
+    if (hero) hero.style.setProperty("--hp", Math.min(1, Math.max(0, y / (vh * 0.9))).toFixed(3));
+    if (mapa) {
+      const r = mapa.getBoundingClientRect();
+      const p = Math.min(1, Math.max(0, (vh * 0.9 - r.top) / (r.height * 0.9 + vh * 0.2)));
+      mapa.style.setProperty("--mp", p.toFixed(3));
+      mapa.style.setProperty("--pts", p > 0.55 ? 1 : 0);
+    }
+  });
+  window.addEventListener("scroll", rolar, { passive: true });
+  window.addEventListener("resize", rolar);
+  rolar();
+
+  /* Listas que entram em sequência (índice em --i) e blocos que "ligam" ao aparecer */
+  [".pilares", ".passos", ".time", ".completos__trilho", ".faq", ".rodape__cols", ".remoto"].forEach((sel) =>
+    $$(sel).forEach((el) => { el.dataset.lista = ""; [...el.children].forEach((c, i) => c.style.setProperty("--i", i)); }));
+  $$(".escudo").forEach((el, i) => el.style.setProperty("--i", i));
+  const alvos = [...$$("[data-lista]"), ...$$(".escudo, .tv__tela, .faixa, .secao--areia, .remoto li")];
+  const obs = new IntersectionObserver((ents) => ents.forEach((en) => {
+    if (!en.isIntersecting) return;
+    en.target.classList.add("ligado");
+    obs.unobserve(en.target);
+  }), { threshold: 0.15, rootMargin: "0px 0px -6% 0px" });
+  alvos.forEach((el) => obs.observe(el));
+
+  /* Pílula que desliza entre chips (triagem) e filtros (cortes); sublinhado do menu */
+  function pilula(container, seletorAtivo, classe, porRolagem) {
+    if (!container) return;
+    const p = document.createElement("span");
+    p.className = classe;
+    p.setAttribute("aria-hidden", "true");
+    container.append(p);
+    const mover = () => {
+      const a = container.querySelector(seletorAtivo);
+      if (!a) { p.classList.remove("pronta"); return; }
+      const cr = container.getBoundingClientRect(), ar = a.getBoundingClientRect();
+      p.style.width = ar.width + "px";
+      p.style.height = (classe === "nav__ind" ? 1 : ar.height) + "px";
+      const y = classe === "nav__ind" ? ar.bottom - cr.top - 4 : ar.top - cr.top;
+      p.style.transform = "translate(" + (ar.left - cr.left) + "px, " + y + "px)";
+      requestAnimationFrame(() => p.classList.add("pronta"));
+    };
+    if (porRolagem) window.addEventListener("scroll", porQuadro(mover), { passive: true });
+    else new MutationObserver(mover).observe(container, { subtree: true, attributes: true, childList: true, attributeFilter: ["aria-pressed", "aria-selected"] });
+    window.addEventListener("resize", mover);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(mover);
+    mover();
+  }
+  pilula($("#triagem-chips"), "[aria-pressed=true]", "pilula");
+  pilula($("#filtros"), "[aria-selected=true]", "pilula");
+  if (window.innerWidth > 860) pilula($(".nav"), "a.ativo", "nav__ind", true);
+
+  if (!mouse) return;
+
+  /* Botões magnéticos com luz que segue o ponteiro */
+  $$(".btn").forEach((b) => {
+    b.addEventListener("pointermove", (e) => {
+      const r = b.getBoundingClientRect();
+      const dx = (e.clientX - (r.left + r.width / 2)) / r.width;
+      const dy = (e.clientY - (r.top + r.height / 2)) / r.height;
+      b.style.setProperty("--mx", (dx * 8) + "px");
+      b.style.setProperty("--my", (dy * 6) + "px");
+      b.style.setProperty("--bx", ((e.clientX - r.left) / r.width * 100) + "%");
+      b.style.setProperty("--by", ((e.clientY - r.top) / r.height * 100) + "%");
+    });
+    b.addEventListener("pointerleave", () => { b.style.setProperty("--mx", "0px"); b.style.setProperty("--my", "0px"); });
+  });
+
+  /* Cursor de latão */
+  const c = document.createElement("span");
+  c.className = "cursor";
+  c.setAttribute("aria-hidden", "true");
+  document.body.append(c);
+  let cx = 0, cy = 0, tx = 0, ty = 0, vivo = false;
+  function segue() { cx += (tx - cx) * 0.22; cy += (ty - cy) * 0.22; c.style.transform = "translate(" + cx + "px, " + cy + "px)"; requestAnimationFrame(segue); }
+  document.addEventListener("pointermove", (e) => { tx = e.clientX; ty = e.clientY; if (!vivo) { vivo = true; cx = tx; cy = ty; c.classList.add("visivel"); segue(); } });
+  document.addEventListener("pointerleave", () => c.classList.remove("visivel"));
+  document.addEventListener("pointerenter", () => c.classList.add("visivel"));
+  document.addEventListener("pointerover", (e) => c.classList.toggle("sobre", !!e.target.closest("a, button, summary, label, [role=tab]")));
+})();

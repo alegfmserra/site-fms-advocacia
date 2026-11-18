@@ -914,3 +914,83 @@ i { font-style: normal; color: var(--latao); }
 .agenda__pronto pre { white-space: pre-wrap; font: 15px/1.5 var(--sans); color: var(--tinta); background: #FBF8F3; border-radius: 8px; padding: 12px 14px; margin: 12px 0; }
 .agenda__pronto .btn { padding: 12px 20px; font-size: 13px; }
 .agenda__copiado { margin-left: 10px; font-size: 14px; color: #2f6b3a; }
+
+/* ==========================================================
+   POLIMENTO 2026-11-18 — protótipo com as regras do Impeccable (typeset,
+   quieter, layout, polish) e da Taste Skill (contraste, alturas, uma seção por tela).
+   Identidade mantida: marinho + branco, latão nos detalhes, Spectral/Source Sans, escudo.
+   ========================================================== */
+
+/* 1. Escala tipográfica única (antes: 74 / 58 / 52 / 54 px sem relação entre si) */
+:root { --t-1: clamp(40px, 5vw, 66px); --t-2: clamp(32px, 3.9vw, 48px); --t-3: clamp(22px, 2.2vw, 28px); }
+.hero h1 { font-size: var(--t-1); line-height: 1.06; letter-spacing: -.015em; max-width: 14ch; }
+.titulo-secao, .escritorio__titulo h2, .contato__chamada h2, .brasil__sub { font-size: var(--t-2); line-height: 1.1; }
+.brasil__sub { font-size: clamp(26px, 2.8vw, 34px); }
+.titulo-secao { margin-bottom: clamp(28px, 4vw, 48px); }
+.escudo h3, .pilares h3, .passos h3, .remoto h3 { font-size: var(--t-3); }
+.sobretitulo { letter-spacing: .2em; margin-bottom: 14px; }
+
+/* 2. Contraste: nada abaixo de ~4.5:1 sobre o marinho (Taste: "contraste fraco") */
+.hero__lead, .brasil__lead, .midia__intro, .escudo > p { color: rgba(246,242,234,.86); }
+.atalhos__rot, .caso__aba small, .brasil__mapa figcaption, .ep__sub, .tv__conv, .completo__conv, .tv__lista .quem,
+.rodape__legal, .contato__agenda p, .assoc small, .hero__rolar, .hero__mais { color: rgba(246,242,234,.74); }
+.escudo ul, .passos p, .remoto p, .rodape__cols p { color: rgba(246,242,234,.82); }
+.caso__aba { color: rgba(246,242,234,.82); }
+
+/* 3. Capa: áreas em linha limpa; indicador "role" não encosta nos atalhos */
+.hero__areas { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; font-size: clamp(17px, 1.6vw, 21px); font-weight: 500; }
+.hero__areas i { margin: 0; }
+.hero__areas i:last-of-type { display: none; }
+.hero__mais { flex-basis: 100%; font-size: 15px; font-weight: 400; }
+.hero__painel { padding-bottom: 150px; }
+@media (max-height: 820px) { .hero__rolar { display: none; } }
+
+/* 4. Faixa "Visto na Band": versão mais quieta (marinho com fio de latão) — item para o Alexandre aprovar ou vetar */
+.faixa { background: var(--marinho); color: var(--branco); border-block: 1px solid rgba(184,155,106,.5); }
+.faixa__rotulo { color: var(--latao); }
+.faixa__band { color: var(--latao-claro); }
+.faixa__txt { color: rgba(246,242,234,.86); }
+.faixa__link { color: var(--latao); }
+
+/* 5. Ritmo vertical: uma seção por tela (antes: 140 px de respiro, sobrando vazio) */
+.secao { padding: clamp(64px, 8.5vw, 108px) 0; }
+.brasil__areas { margin-top: clamp(48px, 6vw, 72px); padding-top: clamp(32px, 4vw, 48px); }
+.brasil__outras { margin-top: 28px; }
+.rodape { padding: 56px 0 32px; }
+.rodape__cols { margin: 48px 0 40px; }
+
+/* 6. Áreas: três escudos da mesma altura, título em caixa normal (4 linhas em caixa alta pesavam) */
+.escudos { align-items: stretch; }
+.escudo { display: flex; flex-direction: column; padding: 44px 32px 92px; }
+.escudo h3 { text-transform: none; letter-spacing: 0; font-weight: 600; }
+.escudo ul { flex: 1; }
+.escudo__link { margin-top: 24px; }
+
+/* 7. Triagem: a ajuda sobe para perto das abas (antes: 250 px vazios no painel escuro) */
+.caso__abas { align-content: start; }
+.caso__ajuda { margin: 14px 26px 0; }
+
+/* 8. Equipe: linhas mais compactas, retrato alinhado ao texto */
+.time { gap: clamp(36px, 4.5vw, 56px); }
+.membro { grid-template-columns: minmax(200px, 250px) 1fr; align-items: center; }
+.membro__hist { max-width: 600px; }
+
+/* 9. Cortes: título legível sobre a miniatura; o "V" do escudo mais discreto */
+.cartao button::after { background: linear-gradient(180deg, rgba(20,31,49,0) 22%, rgba(20,31,49,.95) 68%); }
+.cartao__v { font-size: 20px; opacity: .7; }
+
+/* 10. Contato: chamada em caixa normal, mesma escala dos outros títulos */
+.contato__chamada h2 { text-transform: none; letter-spacing: -.01em; font-weight: 600; }
+.contato__chamada > p { font-size: clamp(19px, 2vw, 24px); color: rgba(246,242,234,.86); font-family: var(--sans); }
+.contato__logo { width: 120px; margin-bottom: 28px; }
+
+/* 11. Botões: um só nível de ênfase por bloco (latão = ação principal; contorno = secundária) */
+.btn { letter-spacing: .06em; }
+.btn--contorno { border-color: rgba(246,242,234,.55); }
+.btn--contorno:hover { border-color: var(--branco); }
+
+@media (max-width: 860px) {
+  .hero__areas { font-size: 17px; }
+  .membro { grid-template-columns: 1fr; align-items: start; }
+  .caso__ajuda { display: none; }
+}

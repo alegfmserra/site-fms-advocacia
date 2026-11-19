@@ -1222,7 +1222,8 @@ input, textarea { caret-color: var(--latao); }
 .texto-legal p + p { margin-top: 12px; }
 .texto-legal ul { padding-left: 20px; display: grid; gap: 10px; }
 .texto-legal a { color: var(--marinho); font-weight: 600; }
-.texto-legal__data { font-size: 14px !important; letter-spacing: .08em; text-transform: uppercase; color: #8C7148 !important; }
+.texto-legal__data { font-size: 14px !important; letter-spacing: .08em; text-transform: uppercase; color: #6B5533 !important; }
+.texto-legal .sobretitulo { color: #6B5533; }
 .texto-legal__nota { margin-top: 40px; font-size: 14px !important; }
 .pagina-texto .topo { background: rgba(20,31,49,.94); }
 .rodape__legal a { color: inherit; }

@@ -61,14 +61,27 @@
     const ctx = tela.getContext("2d");
     const hero = $(".hero");
     let W = 0, H = 0, dpr = 1, rodando = true, quadro = 0;
-    const N = window.innerWidth < 700 ? 34 : 70;
+    const N = window.innerWidth < 700 ? 24 : 44;
     const pts = [];
+    const luz = document.createElement("canvas");
+    function pintarLuz() {
+      luz.width = Math.max(1, Math.round(W / 4)); luz.height = Math.max(1, Math.round(H / 4));
+      const g2 = luz.getContext("2d");
+      g2.clearRect(0, 0, luz.width, luz.height);
+      [[0.78, 0.38, 0.42, 0.10], [0.35, 0.7, 0.35, 0.05]].forEach(([cx, cy, r, a]) => {
+        const x = luz.width * cx, y = luz.height * cy;
+        const g = g2.createRadialGradient(x, y, 0, x, y, Math.max(luz.width, luz.height) * r);
+        g.addColorStop(0, "rgba(184,155,106," + a + ")"); g.addColorStop(1, "rgba(184,155,106,0)");
+        g2.fillStyle = g; g2.fillRect(0, 0, luz.width, luz.height);
+      });
+    }
     function medir() {
-      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      dpr = Math.min(window.devicePixelRatio || 1, 1.5);
       W = hero.clientWidth; H = hero.clientHeight;
       tela.width = W * dpr; tela.height = H * dpr;
       tela.style.width = W + "px"; tela.style.height = H + "px";
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      pintarLuz();
     }
     function novo(i) {
       return {
@@ -90,16 +103,8 @@
       quadro = requestAnimationFrame(() => {
         const t = performance.now() / 1000;
         ctx.clearRect(0, 0, W, H);
-        // duas manchas de luz que passeiam devagar
-        [[0.78, 0.38, 0.42, 0.10], [0.35, 0.7, 0.35, 0.05]].forEach(([cx, cy, r, a], k) => {
-          const x = W * (cx + Math.sin(t * 0.13 + k * 2) * 0.06);
-          const y = H * (cy + Math.cos(t * 0.11 + k) * 0.05);
-          const g = ctx.createRadialGradient(x, y, 0, x, y, Math.max(W, H) * r);
-          g.addColorStop(0, `rgba(184,155,106,${a})`);
-          g.addColorStop(1, "rgba(184,155,106,0)");
-          ctx.fillStyle = g;
-          ctx.fillRect(0, 0, W, H);
-        });
+        // manchas de luz pré-desenhadas, só deslocadas devagar
+        ctx.drawImage(luz, Math.sin(t * 0.13) * W * 0.04, Math.cos(t * 0.11) * H * 0.03, W, H);
         // poeira de latão subindo
         for (const p of pts) {
           p.x += p.vx + Math.sin(t + p.f) * 0.05;
@@ -132,16 +137,17 @@
   /* ---------- Letreiro: corre sozinho e acelera com a rolagem ---------- */
   const trilho = $(".letreiro__trilho");
   if (trilho && !calmo) {
-    let x = 0, visivel = false, extra = 0;
-    new IntersectionObserver(([en]) => { visivel = en.isIntersecting; if (visivel) correr(); }).observe(trilho);
+    let x = 0, visivel = false, extra = 0, metade = 0;
+    const medirTrilho = () => { metade = trilho.scrollWidth / 2; };
+    window.addEventListener("resize", medirTrilho);
+    new IntersectionObserver(([en]) => { visivel = en.isIntersecting; if (visivel) { medirTrilho(); correr(); } }).observe(trilho);
     function correr() {
       if (!visivel) return;
       requestAnimationFrame(() => {
         extra = extra * 0.92 + velocidade * 0.08;
         velocidade *= 0.9;
         x -= 0.6 + extra * 0.5;
-        const metade = trilho.scrollWidth / 2;
-        if (-x >= metade) x += metade;
+        if (metade && -x >= metade) x += metade;
         trilho.style.transform = `translate3d(${x}px,0,0)`;
         correr();
       });
@@ -341,7 +347,7 @@
       p.style.transform = "translate(" + (ar.left - cr.left) + "px, " + y + "px)";
       requestAnimationFrame(() => p.classList.add("pronta"));
     };
-    if (porRolagem) window.addEventListener("scroll", porQuadro(mover), { passive: true });
+    if (porRolagem) container.querySelectorAll("a").forEach((a) => new MutationObserver(porQuadro(mover)).observe(a, { attributes: true, attributeFilter: ["class"] }));
     else new MutationObserver(mover).observe(container, { subtree: true, attributes: true, childList: true, attributeFilter: ["aria-pressed", "aria-selected"] });
     window.addEventListener("resize", mover);
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(mover);
@@ -404,11 +410,11 @@
       ab.classList.add("sai");
       html.classList.remove("abrindo");
       html.style.overflow = "";
-      if (h1) setTimeout(() => h1.classList.add("revelado"), 350);
+      if (h1) setTimeout(() => h1.classList.add("revelado"), 250);
       try { sessionStorage.setItem("fms-abertura", "1"); } catch (e) {}
-      setTimeout(() => ab.classList.add("feita"), 900);
+      setTimeout(() => ab.classList.add("feita"), 650);
     };
-    setTimeout(soltar, 1700);
+    setTimeout(soltar, 1150);
   }
 
   if (!anima) return;

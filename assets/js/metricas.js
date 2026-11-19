@@ -3,7 +3,7 @@
 // ga4: ID de medida da propriedade (formato G-XXXXXXXXXX). Vazio = nada é carregado e o aviso de cookies não aparece.
 // Nada de terceiros entra na página antes de o visitante aceitar; sem aceite, o site funciona igual e não mede nada.
 window.METRICAS = {
-  ga4: "",
+  ga4: "G-7G47KRE2DB",
 };
 
 (() => {

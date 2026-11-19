@@ -329,6 +329,16 @@
     obs.unobserve(en.target);
   }), { threshold: 0.15, rootMargin: "0px 0px -6% 0px" });
   alvos.forEach((el) => obs.observe(el));
+  // Rede de segurança: se o observador falhar, nada fica invisível (checa na rolagem e depois de 4 s)
+  const pendentes = new Set(alvos);
+  const garantir = () => {
+    const vh = window.innerHeight;
+    pendentes.forEach((el) => { if (el.classList.contains("ligado")) { pendentes.delete(el); return; } const r = el.getBoundingClientRect(); if (r.top < vh * 1.1 && r.bottom > -vh * 0.5) { el.classList.add("ligado"); pendentes.delete(el); } });
+  };
+  let tg = 0;
+  window.addEventListener("scroll", () => { if (tg) return; tg = setTimeout(() => { tg = 0; garantir(); }, 250); }, { passive: true });
+  setTimeout(garantir, 1500);
+  setTimeout(() => { pendentes.forEach((el) => el.classList.add("ligado")); pendentes.clear(); }, 4000);
 
   /* Pílula que desliza entre chips (triagem) e filtros (cortes); sublinhado do menu */
   function pilula(container, seletorAtivo, classe, porRolagem) {

@@ -1228,6 +1228,3 @@ input, textarea { caret-color: var(--latao); }
 .pagina-texto .topo { background: rgba(20,31,49,.94); }
 .rodape__legal a { color: inherit; }
 
-/* Desempenho: seções fora da tela não são pintadas até chegarem perto */
-.secao, .rodape { content-visibility: auto; contain-intrinsic-size: auto 900px; }
-.hero, #seu-caso { content-visibility: visible; }

@@ -17,7 +17,7 @@ const PADROES = [
   [/wa\.me\/\d+/g, "link de WhatsApp fixo"],
 ];
 // permitidos: exemplos genéricos, os dados fictícios dos mockups (listados como proibidos no CLAUDE.md) e o CEP
-const PERMITIDOS = [/exemplo\.com/, /fms\.adv\.br/, /99123-4567/, /noreply@anthropic\.com/, /schema\.org/, /w3\.org/, /65070-835/, /\b0{4,}/];
+const PERMITIDOS = [/^contato@moreiraserraadv.com.br$/, /exemplo\.com/, /fms\.adv\.br/, /99123-4567/, /noreply@anthropic\.com/, /schema\.org/, /w3\.org/, /65070-835/, /\b0{4,}/];
 let achados = 0;
 for (const f of arquivos) {
   const txt = fs.readFileSync(path.join(RAIZ, f), "utf8");

@@ -8,5 +8,5 @@
 
 window.CONTATO = {
   whatsapp: "",
-  email: "",
+  email: "contato@moreiraserraadv.com.br",
 };

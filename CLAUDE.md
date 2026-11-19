@@ -5,7 +5,9 @@
 ## O que é
 
 - Site **estático** (HTML + CSS + JS puros, sem build), publicado no **GitHub Pages** a partir da branch `main`.
-- Repositório: https://github.com/alegfmserra/site-fms-advocacia (público) · Site no ar: https://alegfmserra.github.io/site-fms-advocacia/ (Pages ativado em 2026-11-08; cada push na `main` republica em ~1 min).
+- Repositório: https://github.com/alegfmserra/site-fms-advocacia (público) · **Site no ar: https://moreiraserraadv.com.br/** (domínio próprio desde 2026-11-18, arquivo `CNAME`, HTTPS forçado; o endereço antigo alegfmserra.github.io/site-fms-advocacia redireciona). Cada push na `main` republica em ~1 min.
+- **Domínio**: registrado no Registro.br (vence 2027-03-09), DNS na Hostinger (`ns1/ns2.dns-parking.com`). Registros do site: 4 `A @` → 185.199.108/109/110/111.153 e `CNAME www` → alegfmserra.github.io. MX/SPF são do Google Workspace: **não mexer**. Os CNAMEs `hostingermail-*`, `autodiscover` e `autoconfig` são sobras do e-mail da Hostinger (inofensivos).
+- **E-mail público**: `contato@moreiraserraadv.com.br` é um **grupo do Google Workspace** (sem licença extra), criado em 2026-11-18: Alexandre proprietário, Dr. Vitor participante; externos podem postar, só a organização vê as conversas, entrada só por convite. Gerenciar em admin.google.com → Grupos → Contato. É o único e-mail em `assets/js/contato.js` e no JSON-LD.
 - Página única (`index.html`) com seções, na ordem: Capa (vídeo/foto de fundo + escudo animado) · faixa "Visto na Band" · **Atuação em todo o Brasil** (mapa + 3 passos a distância + 3 áreas) · Seu caso (triagem) · letreiro · Escritório · Como funciona · **Equipe** (retrato, trajetória e momentos) · **Na Mídia** (episódio em destaque + lista + cortes por tema) · Dúvidas · Contato. Página à parte: `associados.html` (Área do associado, só aviso, sem login; noindex).
 - **Direito Militar sempre em primeiro** nas listas de áreas (capa, escudos, triagem, formulário): o Dr. Vitor está à frente do escritório e essa é a área dele. O site deve deixar claro que o escritório atua em **diversas áreas**, com especialidade maior nas três detalhadas (Alexandre, 2026-11-15).
 - Estrutura escolhida pelo Alexandre e pelo Dr. Vitor em 2026-11-15 a partir de `Telas Sugeridas/propostas-por-parte-fms.html`: capa 1A, Brasil 2A+2B+2C, equipe 3B, vídeos 4B.
@@ -127,7 +129,9 @@ node scripts/atualizar-videos.js
 - [ ] Fotos profissionais da equipe (hoje: monograma no lugar da foto). O Alexandre vai solicitar.
 - [ ] Instagram do Dr. Vitor: conferir se há playlists/destaques por tema que valham entrar na curadoria (exige login; ainda não acessado).
 - [ ] Instagram do escritório (link do rodapé está desativado até ter o endereço).
-- [ ] Domínio próprio (ex.: moreiraserraadv.com.br) apontando para o GitHub Pages. Ao trocar: atualizar canonical, og:url, og:image e JSON-LD do `index.html`, `sitemap.xml` e `robots.txt`; cadastrar no Google Search Console e enviar o sitemap.
+- [x] Domínio próprio moreiraserraadv.com.br apontado e no ar (2026-11-18); canonical, og, JSON-LD, sitemap e robots trocados.
+- [ ] Google Search Console: cadastrar a propriedade `moreiraserraadv.com.br` (verificação por DNS TXT na Hostinger) e enviar o sitemap.
+- [ ] Número de WhatsApp do escritório (contratar) → preencher `whatsapp` em `contato.js`.
 - [ ] Perfil da Empresa no Google (Google Meu Negócio) com o endereço do Praia Shopping e link para o site.
 - [ ] Link do **Agendamento do Google Agenda** (do Dr. Vitor ou do Alexandre) para ativar o botão "Escolher horário na agenda".
 - [ ] Arquivos originais dos episódios do Programa Saudações (ou pasta com eles) para os recortes de vídeo. Direito de uso: confirmado. Prioridade: um trecho para o fundo da capa (`data-video`).

@@ -447,7 +447,8 @@
     modal.addEventListener("close", () => { tela.innerHTML = ""; }); // Esc também para o vídeo
     modal.addEventListener("cancel", () => { tela.innerHTML = ""; });
   }
-  document.querySelectorAll("[data-video]").forEach((b) => b.addEventListener("click", () => abrirVideo(b.dataset.video, b.dataset.titulo)));
+  // só botões: a <section class="hero"> também tem data-video (vídeo de fundo) e não pode abrir o player
+  document.querySelectorAll("button[data-video]").forEach((b) => b.addEventListener("click", () => abrirVideo(b.dataset.video, b.dataset.titulo)));
 
   window.abrirVideoFMS = abrirVideo;
 

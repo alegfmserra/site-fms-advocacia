@@ -1113,3 +1113,97 @@ input, textarea { caret-color: var(--latao); }
 @media (prefers-reduced-motion: reduce) {
   .hero__texto, .hero__arte { transform: none !important; scale: 1 !important; opacity: 1 !important; }
 }
+
+/* ==========================================================
+   MOTION 2 (2026-11-18) — abertura, rolagem suave, paralaxe de profundidade,
+   mapa com sinais em trânsito, títulos com fio, campos do formulário.
+   ========================================================== */
+
+/* --- Abertura: escudo se desenha, marca surge, cortina sobe --- */
+.abertura { position: fixed; inset: 0; z-index: 200; display: grid; place-items: center; background: var(--profundo); overflow: hidden; }
+.abertura__escudo { width: min(46vw, 300px); height: auto; }
+.abertura__escudo path { stroke-dasharray: 1; stroke-dashoffset: 1; }
+.abertura__marca { position: absolute; width: min(12vw, 78px); aspect-ratio: 445 / 657; overflow: hidden; opacity: 0; }
+.abertura__marca img { width: 342%; max-width: none; filter: brightness(0) invert(1); }
+.abertura__linha { position: absolute; left: 50%; bottom: 14%; width: 0; height: 1px; background: var(--latao); transform: translateX(-50%); }
+.calmo .abertura, .abertura.feita { display: none; }
+.anima .abertura path { animation: desenha 1.1s cubic-bezier(.6,0,.2,1) forwards; }
+.anima .abertura path:nth-child(2) { animation-delay: .15s; }
+.anima .abertura path:nth-child(3) { animation-delay: .3s; }
+.anima .abertura__marca { animation: surge .7s .9s cubic-bezier(.16,1,.3,1) both; }
+.anima .abertura__linha { animation: linha-cresce .9s .5s cubic-bezier(.16,1,.3,1) both; }
+@keyframes linha-cresce { to { width: min(50vw, 320px); } }
+.anima .abertura.sai { animation: cortina .8s cubic-bezier(.76,0,.24,1) forwards; }
+.anima .abertura.sai .abertura__escudo, .anima .abertura.sai .abertura__marca, .anima .abertura.sai .abertura__linha { animation: some .3s ease forwards; }
+@keyframes cortina { to { clip-path: inset(0 0 100% 0); } }
+@keyframes some { to { opacity: 0; transform: translateY(-16px); } }
+/* a capa só começa a sequência quando a cortina sobe */
+.anima.abrindo .hero .sobretitulo, .anima.abrindo .hero__areas, .anima.abrindo .hero__lead, .anima.abrindo .hero__acoes, .anima.abrindo .atalhos__rot, .anima.abrindo .atalhos,
+.anima.abrindo .hero__monograma, .anima.abrindo .hero__escudos path, .anima.abrindo .hero__escudos circle { animation-play-state: paused; }
+
+/* --- Capa: escudo em 3D que acompanha o ponteiro; anel de linhas que gira devagar --- */
+.anima .hero__arte { transform-style: preserve-3d; transform: perspective(1200px) rotateY(var(--ry, 0deg)) rotateX(var(--rx, 0deg)); transition: transform .5s cubic-bezier(.16,1,.3,1), translate .6s cubic-bezier(.2,.7,.2,1); }
+.hero__anel { position: absolute; inset: -8%; pointer-events: none; }
+.hero__anel circle { fill: none; stroke: var(--latao); stroke-opacity: .22; }
+.anima .hero__anel { animation: gira 80s linear infinite; }
+.anima .hero__anel circle:nth-child(2) { animation: gira-inv 60s linear infinite; transform-origin: 50% 50%; }
+@keyframes gira { to { transform: rotate(360deg); } }
+@keyframes gira-inv { to { transform: rotate(-360deg); } }
+
+/* --- Profundidade: fundos andam mais devagar que o conteúdo (--sy = deslocamento em px, do JS) --- */
+.anima .hero__canvas { transform: translateY(calc(var(--hp, 0) * 120px)); }
+.anima .secao--escura, .anima .secao--marinho { background-attachment: scroll; }
+.anima .brasil__mapa { transform: translateY(calc(var(--par, 0) * -1px)); transition: transform .1s linear; }
+.anima .letreiro__trilho { will-change: transform; }
+
+/* --- Mapa: sinais percorrem as linhas de São Luís até as capitais --- */
+.mapa__sinal { fill: #FFF3DC; filter: drop-shadow(0 0 4px rgba(217,195,154,.9)); opacity: 0; }
+.anima .brasil__mapa.ligado .mapa__sinal { animation: viaja var(--dur, 4s) var(--atraso, 0s) cubic-bezier(.3,0,.2,1) infinite; }
+@keyframes viaja { 0% { offset-distance: 0%; opacity: 0; } 8% { opacity: 1; } 85% { opacity: 1; } 100% { offset-distance: 100%; opacity: 0; } }
+
+/* --- Títulos de seção: fio de latão que se desenha depois das palavras subirem --- */
+.anima .titulo-secao, .anima .escritorio__titulo h2 { position: relative; padding-bottom: 14px; }
+.anima .titulo-secao::after, .anima .escritorio__titulo h2::after { content: ""; position: absolute; left: 0; bottom: 0; width: 72px; height: 2px; background: var(--latao); transform: scaleX(0); transform-origin: 0 50%; transition: transform .9s .5s cubic-bezier(.16,1,.3,1); }
+.anima .titulo-secao.revelado::after, .anima .escritorio__titulo h2.revelado::after { transform: scaleX(1); }
+
+/* --- Seções: o conteúdo entra com leve escala e as seções claras abrem por máscara (scroll-driven, com fallback) --- */
+@supports (animation-timeline: view()) {
+  .anima .secao > .cont { animation: entra-secao linear both; animation-timeline: view(); animation-range: entry 0% entry 38%; }
+  @keyframes entra-secao { from { opacity: .25; transform: translateY(40px) scale(.985); } to { opacity: 1; transform: none; } }
+  .anima .secao--areia { animation: abre-areia linear both; animation-timeline: view(); animation-range: entry 0% entry 30%; }
+  @keyframes abre-areia { from { clip-path: inset(0 5% 0 5% round 28px 28px 0 0); } to { clip-path: inset(0 0 0 0 round 0); } }
+}
+
+/* --- Como funciona: cartões inclinam ao passar o ponteiro --- */
+.anima .passos li { transition: opacity .6s ease, transform .5s cubic-bezier(.16,1,.3,1), box-shadow .5s ease; }
+.anima .passos li:hover { transform: translateY(-6px) rotateX(2deg); box-shadow: 0 24px 50px -20px rgba(0,0,0,.6); }
+
+/* --- Na Mídia: a lista e os cortes entram em sequência --- */
+.anima .tv__lista li, .anima .cartoes .cartao { opacity: 0; transform: translateY(14px); transition: opacity .6s cubic-bezier(.16,1,.3,1), transform .6s cubic-bezier(.16,1,.3,1); transition-delay: calc(var(--i, 0) * 60ms); }
+.anima .tv__lista.ligado li, .anima .cartoes.ligado .cartao, .anima .cartoes .cartao.ligado { opacity: 1; transform: none; }
+
+/* --- Equipe: retrato com leve 3D ao passar o ponteiro --- */
+.anima .membro__retrato { transform: perspective(900px) rotateY(var(--ry, 0deg)) rotateX(var(--rx, 0deg)); transition: transform .5s cubic-bezier(.16,1,.3,1); }
+
+/* --- Formulário: campos acendem com fio de latão ao focar; etapa ativa pulsa uma vez --- */
+.anima .campo input, .anima .campo select, .anima .campo textarea { transition: border-color .25s, box-shadow .35s cubic-bezier(.16,1,.3,1), transform .25s; }
+.anima .campo input:focus, .anima .campo select:focus, .anima .campo textarea:focus { box-shadow: 0 0 0 3px rgba(184,155,106,.35), 0 10px 24px -14px rgba(30,44,66,.5); transform: translateY(-1px); border-color: var(--latao); }
+.anima .agenda__passos li { transition: background .4s, transform .4s cubic-bezier(.16,1,.3,1); }
+.anima .agenda__passos li.ativo { transform: scale(1.04); }
+.anima .opcoes span { transition: background .25s, border-color .25s, color .25s, transform .25s cubic-bezier(.16,1,.3,1); }
+.anima .opcoes input:checked + span { transform: translateY(-1px); }
+
+/* --- Links do menu e rodapé: sublinhado cresce do centro --- */
+.anima .rodape__topo nav a, .anima .ep__link, .anima .escudo__link, .anima .brasil__outras a { background: linear-gradient(var(--latao), var(--latao)) center 100% / 0 1px no-repeat; transition: background-size .35s cubic-bezier(.16,1,.3,1), color .2s; border-bottom: 0 !important; }
+.anima .rodape__topo nav a:hover, .anima .ep__link:hover, .anima .escudo__link:hover, .anima .brasil__outras a:hover { background-size: 100% 1px; }
+
+/* --- Contraste apontado pelo detector: links em latão sobre o degradê dos escudos --- */
+.escudo__link, .brasil__outras a { color: var(--latao-claro); }
+
+@media (max-width: 860px) {
+  .anima .hero__arte { transform: none; }
+  .anima .passos li:hover { transform: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero__anel, .mapa__sinal { display: none; }
+}

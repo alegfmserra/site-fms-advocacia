@@ -379,3 +379,126 @@
   document.addEventListener("pointerenter", () => c.classList.add("visivel"));
   document.addEventListener("pointerover", (e) => c.classList.toggle("sobre", !!e.target.closest("a, button, summary, label, [role=tab]")));
 })();
+
+/* ---------- MOTION 2 (2026-11-18): abertura, rolagem suave, 3D no escudo, sinais no mapa, paralaxe, listas da mídia ---------- */
+(() => {
+  "use strict";
+  const $ = (s, el = document) => el.querySelector(s);
+  const $$ = (s, el = document) => [...el.querySelectorAll(s)];
+  const html = document.documentElement;
+  const anima = html.classList.contains("anima");
+  const mouse = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+  const ab = $("#abertura");
+
+  /* Abertura: uma vez por visita (sessionStorage); a capa espera a cortina subir */
+  let jaViu = false;
+  try { jaViu = sessionStorage.getItem("fms-abertura") === "1"; } catch (e) {}
+  if (!ab || !anima || jaViu || location.hash) {
+    if (ab) ab.classList.add("feita");
+  } else {
+    html.classList.add("abrindo");
+    html.style.overflow = "hidden";
+    const h1 = $(".hero h1");
+    requestAnimationFrame(() => requestAnimationFrame(() => h1 && h1.classList.remove("revelado")));
+    const soltar = () => {
+      ab.classList.add("sai");
+      html.classList.remove("abrindo");
+      html.style.overflow = "";
+      if (h1) setTimeout(() => h1.classList.add("revelado"), 350);
+      try { sessionStorage.setItem("fms-abertura", "1"); } catch (e) {}
+      setTimeout(() => ab.classList.add("feita"), 900);
+    };
+    setTimeout(soltar, 1700);
+  }
+
+  if (!anima) return;
+
+  /* Rolagem suave com inércia (só desktop com roda do mouse; teclado, barra e toque continuam nativos) */
+  if (mouse) {
+    let alvo = window.scrollY, atual = alvo, rodando = false;
+    const max = () => document.documentElement.scrollHeight - window.innerHeight;
+    function passo() {
+      atual += (alvo - atual) * 0.12;
+      if (Math.abs(alvo - atual) < 0.5) { atual = alvo; rodando = false; }
+      window.scrollTo(0, atual);
+      if (rodando) requestAnimationFrame(passo);
+    }
+    window.addEventListener("wheel", (e) => {
+      if (e.ctrlKey || e.target.closest(".cartoes, .completos__trilho, .momentos, .tv__lista, dialog, textarea")) return;
+      e.preventDefault();
+      const delta = e.deltaMode === 1 ? e.deltaY * 32 : e.deltaY;
+      if (!rodando) atual = window.scrollY;
+      alvo = Math.max(0, Math.min(max(), alvo + delta));
+      if (!rodando) { rodando = true; requestAnimationFrame(passo); }
+    }, { passive: false });
+    window.addEventListener("scroll", () => { if (!rodando) alvo = window.scrollY; }, { passive: true });
+  }
+
+  /* Capa: anel de linhas atrás do escudo + escudo em 3D que acompanha o ponteiro */
+  const arte = $(".hero__arte");
+  if (arte) {
+    const anel = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    anel.setAttribute("class", "hero__anel");
+    anel.setAttribute("viewBox", "0 0 600 600");
+    anel.innerHTML = '<circle cx="300" cy="300" r="286" stroke-dasharray="2 14" stroke-width="1"/><circle cx="300" cy="300" r="256" stroke-dasharray="40 300" stroke-width="1"/>';
+    arte.prepend(anel);
+    if (mouse) {
+      $(".hero").addEventListener("pointermove", (e) => {
+        const r = e.currentTarget.getBoundingClientRect();
+        const dx = (e.clientX - r.left) / r.width - 0.5, dy = (e.clientY - r.top) / r.height - 0.5;
+        arte.style.setProperty("--ry", (dx * 10) + "deg");
+        arte.style.setProperty("--rx", (dy * -8) + "deg");
+      });
+      $(".hero").addEventListener("pointerleave", () => { arte.style.setProperty("--ry", "0deg"); arte.style.setProperty("--rx", "0deg"); });
+    }
+  }
+
+  /* Mapa: sinais que percorrem as linhas (offset-path a partir do "d" de cada linha) */
+  const mapa = $(".brasil__mapa");
+  const linhas = $$(".mapa__linhas path");
+  if (mapa && linhas.length && CSS.supports("offset-path", "path('M0 0')")) {
+    const svg = $(".mapa");
+    const escolhidas = linhas.filter((_, i) => i % 3 === 0).slice(0, 8);
+    escolhidas.forEach((p, i) => {
+      const dot = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+      dot.setAttribute("r", "2.2");
+      dot.setAttribute("class", "mapa__sinal");
+      dot.style.offsetPath = "path('" + p.getAttribute("d") + "')";
+      dot.style.setProperty("--dur", (3.2 + (i % 4) * 0.9) + "s");
+      dot.style.setProperty("--atraso", (i * 0.7) + "s");
+      svg.append(dot);
+    });
+  }
+
+  /* Paralaxe do mapa e listas da mídia em sequência */
+  const tvLista = $("#tv-lista");
+  const cartoes = $$(".cartoes");
+  const marcar = (el) => [...el.children].forEach((c, i) => c.style.setProperty("--i", i));
+  if (tvLista) marcar(tvLista);
+  const obs = new IntersectionObserver((ents) => ents.forEach((en) => { if (en.isIntersecting) { en.target.classList.add("ligado"); obs.unobserve(en.target); } }), { threshold: 0.1 });
+  if (tvLista) obs.observe(tvLista);
+  cartoes.forEach((c) => { marcar(c); obs.observe(c); });
+  // os cortes são re-renderizados ao trocar o tema: marca de novo
+  new MutationObserver(() => $$(".cartoes").forEach((c) => { marcar(c); c.classList.add("ligado"); })).observe($("#episodios") || document.body, { childList: true, subtree: true });
+
+  let pedido = 0;
+  window.addEventListener("scroll", () => {
+    if (pedido || !mapa) return;
+    pedido = requestAnimationFrame(() => {
+      pedido = 0;
+      const r = mapa.getBoundingClientRect();
+      const centro = (r.top + r.height / 2 - window.innerHeight / 2) / window.innerHeight;
+      mapa.style.setProperty("--par", (centro * 40).toFixed(1));
+    });
+  }, { passive: true });
+
+  /* Equipe: retrato em 3D leve */
+  if (mouse) $$(".membro__retrato").forEach((el) => {
+    el.addEventListener("pointermove", (e) => {
+      const r = el.getBoundingClientRect();
+      el.style.setProperty("--ry", (((e.clientX - r.left) / r.width - 0.5) * 12) + "deg");
+      el.style.setProperty("--rx", (((e.clientY - r.top) / r.height - 0.5) * -10) + "deg");
+    });
+    el.addEventListener("pointerleave", () => { el.style.setProperty("--ry", "0deg"); el.style.setProperty("--rx", "0deg"); });
+  });
+})();

@@ -5,4 +5,10 @@
     <loc>https://moreiraserraadv.com.br/</loc>
     <lastmod>2026-11-18</lastmod>
   </url>
+  <url>
+    <loc>https://moreiraserraadv.com.br/privacidade.html</loc>
+    <lastmod>2026-11-18</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.2</priority>
+  </url>
 </urlset>

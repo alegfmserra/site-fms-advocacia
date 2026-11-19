@@ -19,7 +19,7 @@
 | `index.html` | A página inteira. Textos ficam aqui. |
 | `assets/css/style.css` | Todo o visual. Cores e fontes em variáveis no `:root`. |
 | `assets/js/main.js` | Menu mobile, triagem "Seu caso", galeria de vídeos por tema, formulário de agendamento (abre o WhatsApp). |
-| `assets/js/movimento.js` | **Efeitos visuais**: partículas e reflexo no topo, títulos que sobem, letreiro, escudos que inclinam, linha do Como funciona, parede de cortes do Cinema, botão do Google Agenda. Respeita "reduzir movimento" do sistema. |
+| `assets/js/movimento.js` | **Efeitos visuais**: partículas e reflexo no topo, títulos que sobem, letreiro, escudos que inclinam, linha do Como funciona, botão do Google Agenda, e as camadas MOTION/MOTION 2 (abertura, rolagem suave, capa que sela, mapa com sinais, pílulas, cursor). Respeita "reduzir movimento" do sistema. |
 | `assets/js/equipe.js` | **Fotos da equipe** (retrato e faixa de momentos de cada advogado). Editado à mão; sem foto, o site mostra a marca e esconde a faixa. |
 | `associados.html` | Página "Área do associado": aviso de acesso restrito com botões de contato. **Sem campo de senha** (de propósito). |
 | `assets/js/triagem.js` | **Conteúdo da triagem** (situações, "é bom saber", documentos, vídeo). Editado à mão — passar pelo filtro do Provimento 205. |
@@ -32,6 +32,24 @@
 | `scripts/servir.js` | Servidor local para ver o site (porta 4321). |
 | `Telas Sugeridas/` | Mockups de referência (Gemini). **Não publicados** (no `.gitignore`). |
 | `Logomarca/` | Arquivos originais da logomarca (no `.gitignore`). |
+
+## Skills de design e vídeo (instaladas em 2026-11-18, pedido do Alexandre)
+
+Instaladas as 5 do e-book "5 skills pra vídeo bonito" (todas de código aberto; nada vai para o GitHub — `.claude/skills/`, `.claude/agents/`, `.impeccable/` e `skills-lock.json` estão no `.gitignore`):
+
+| Skill | Onde | Como usar | Serve para |
+|---|---|---|---|
+| **Impeccable** (pbakaus/impeccable, Apache 2.0) | `.claude/skills/impeccable` + binário em `~/.impeccable/bin` | `/impeccable critique`, `audit`, `polish`, `animate`, `typeset`… · detector: `npx impeccable detect index.html assets/css/style.css` | revisão e refino de design do site |
+| **Taste Skill** (Leonxlnx/taste-skill, MIT) | `.claude/skills/design-taste-frontend` | skill `design-taste-frontend` (confere a página no Chrome headless em 4 larguras) | checagem de contraste, alinhamento e altura das seções |
+| **HyperFrames** (heygen-com, Apache 2.0) | `~/.claude/skills/hyperframes*` (global) | skills `hyperframes`, `hyperframes-cli`, `hyperframes-registry`, `media-use` | motion em HTML renderizado em MP4 (legendas, títulos, cortes do programa) |
+| **Remotion** (remotion-dev/skills) | `.claude/skills/remotion-*` | `/remotion-best-practices` e irmãs | vídeo em código (contador, gráfico); grátis para empresa de até 3 pessoas |
+| **video-use** (browser-use, MIT) | `~/Developer/video-use` → junction em `~/.claude/skills/video-use`; Python 3.12 em `.venv` | skill `video-use`; `helpers/transcribe.py` cai para **faster-whisper local** (`helpers/transcribe_whisper.py`) quando não há chave da ElevenLabs | cortar pausas e erros, legendar vídeos gravados |
+
+- Decisão: transcrição **local** (Whisper), sem chave de API nem envio de áudio a terceiros. Primeiro uso baixa o modelo `small` (~500 MB).
+- O detector do Impeccable considera os rótulos numerados das seções ("01 — Atuação…") e o sobretítulo acima do título como padrão genérico; o Alexandre ainda não decidiu se mantém.
+- **Publicado na `main` em 2026-11-18** (pedido do Alexandre: "sobe algo mais aprimorado e acabado para eu revisar"): polimento (escala de títulos, contraste, ritmo, faixa da Band em marinho com fio de latão) + duas camadas de motion em `style.css`/`movimento.js` (blocos "MOTION" e "MOTION 2"): abertura com o escudo se desenhando (uma vez por visita, `sessionStorage`), rolagem suave com inércia (só roda do mouse no desktop), capa que sela ao rolar, escudo em 3D que acompanha o ponteiro com anel de linhas, mapa desenhado pela rolagem com sinais percorrendo as linhas, escudos que abrem pelo V, fio de latão sob os títulos, seções com entrada scroll-driven, pílula nos chips e no menu, botões magnéticos, cursor de latão, retratos em 3D, TV que "liga", FAQ com altura animada. Tudo some com "reduzir movimento". Comparação em `Telas Sugeridas/polimento/antes-depois.html`. **Aguardando a revisão do Alexandre**: itens a vetar ou dosar (cursor, abertura, rolagem suave, faixa da Band).
+- Armadilha conhecida: um `MutationObserver` observando `class` dentro do `.nav` entra em loop com o marcador de seção ativa de `main.js`; o sublinhado do menu é atualizado pela rolagem.
+- Aviso de teste: no navegador embutido do app, a capa pode aparecer vazia até a primeira rolagem (artefato da emulação); no Chrome headless e no Chrome normal renderiza certo.
 
 ## Comandos
 

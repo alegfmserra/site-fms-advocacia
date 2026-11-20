@@ -22,6 +22,18 @@ window.TRIAGEM = [  {
         video: "r3f9qkuQtSM",
       },
       {
+        id: "policial",
+        curto: "Policial ou bombeiro",
+        area: "Militar",
+        rotulo: "Sou policial ou bombeiro militar e tenho uma questão de carreira",
+        saiba: [
+          "Promoção (por antiguidade, merecimento ou após preterição), licença-prêmio, contagem de tempo e outros direitos da carreira seguem o estatuto e a legislação de cada corporação estadual.",
+          "Licença-prêmio não usufruída pode, em certos casos, ser convertida em dinheiro, inclusive depois da passagem para a reserva. Depende da lei do estado e do tempo decorrido.",
+          "Prazo importa: pretensões com reflexo financeiro contra o Estado costumam prescrever em 5 anos.",
+        ],
+        docs: ["Identidade funcional", "Ficha funcional ou assentamentos", "Contracheques do período", "Publicações em boletim sobre promoção, licença ou contagem de tempo"],
+      },
+      {
         id: "pad",
         curto: "Sindicância ou PAD",
         area: "Militar",
@@ -38,10 +50,11 @@ window.TRIAGEM = [  {
         area: "Militar",
         rotulo: "Fui eliminado ou prejudicado em concurso público",
         saiba: [
-          "Eliminações em exame de saúde, teste físico, investigação social ou correção de prova podem ser questionadas quando contrariam a lei ou o edital.",
+          "Eliminações em exame de saúde, teste de aptidão física (TAF), investigação social ou correção de prova podem ser questionadas quando contrariam a lei ou o edital.",
+          "No TAF, a impugnação costuma envolver a forma de aplicação do teste, a falta de previsão no edital ou a ausência de recurso: guarde o resultado e, se possível, registros e testemunhas do dia.",
           "Os prazos de recurso administrativo são curtos.",
         ],
-        docs: ["Edital e anexos", "Resultado ou ato de eliminação", "Recursos que você já apresentou", "Laudos e exames, se o motivo foi de saúde"],
+        docs: ["Edital e anexos", "Resultado ou ato de eliminação", "Recursos que você já apresentou", "Laudos e exames, se o motivo foi de saúde", "Registros ou testemunhas do teste físico, se houver"],
         video: "IELwYf3w-pU",
       },
     ],

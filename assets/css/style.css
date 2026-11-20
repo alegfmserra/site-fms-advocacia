@@ -1115,7 +1115,7 @@ input, textarea { caret-color: var(--latao); }
 }
 
 /* ==========================================================
-   MOTION 2 (2026-11-18) — abertura, rolagem suave, paralaxe de profundidade,
+   MOTION 2 (2026-11-18) — abertura, paralaxe de profundidade (rolagem suave por JS removida em 2026-11-20),
    mapa com sinais em trânsito, títulos com fio, campos do formulário.
    ========================================================== */
 
@@ -1153,7 +1153,7 @@ input, textarea { caret-color: var(--latao); }
 /* --- Profundidade: fundos andam mais devagar que o conteúdo (--sy = deslocamento em px, do JS) --- */
 .anima .hero__canvas { transform: translateY(calc(var(--hp, 0) * 120px)); will-change: transform; }
 .anima .secao--escura, .anima .secao--marinho { background-attachment: scroll; }
-.anima .brasil__mapa { transform: translateY(calc(var(--par, 0) * -1px)); transition: transform .1s linear; }
+.anima .brasil__mapa { transform: translateY(calc(var(--par, 0) * -1px)); will-change: transform; } /* sem transition: o valor já é atualizado por quadro; a transição de .1s deixava o mapa atrasado em relação ao conteúdo */
 .anima .letreiro__trilho { will-change: transform; }
 
 /* --- Mapa: sinais percorrem as linhas de São Luís até as capitais --- */

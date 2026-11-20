@@ -396,7 +396,7 @@
   document.addEventListener("pointerover", (e) => c.classList.toggle("sobre", !!e.target.closest("a, button, summary, label, [role=tab]")));
 })();
 
-/* ---------- MOTION 2 (2026-11-18): abertura, rolagem suave, 3D no escudo, sinais no mapa, paralaxe, listas da mídia ---------- */
+/* ---------- MOTION 2 (2026-11-18): abertura, 3D no escudo, sinais no mapa, paralaxe, listas da mídia (rolagem suave por JS removida em 2026-11-20) ---------- */
 (() => {
   "use strict";
   const $ = (s, el = document) => el.querySelector(s);
@@ -429,26 +429,11 @@
 
   if (!anima) return;
 
-  /* Rolagem suave com inércia (só desktop com roda do mouse; teclado, barra e toque continuam nativos) */
-  if (mouse) {
-    let alvo = window.scrollY, atual = alvo, rodando = false;
-    const max = () => document.documentElement.scrollHeight - window.innerHeight;
-    function passo() {
-      atual += (alvo - atual) * 0.12;
-      if (Math.abs(alvo - atual) < 0.5) { atual = alvo; rodando = false; }
-      window.scrollTo(0, atual);
-      if (rodando) requestAnimationFrame(passo);
-    }
-    window.addEventListener("wheel", (e) => {
-      if (e.ctrlKey || e.target.closest(".cartoes, .completos__trilho, .momentos, .tv__lista, dialog, textarea")) return;
-      e.preventDefault();
-      const delta = e.deltaMode === 1 ? e.deltaY * 32 : e.deltaY;
-      if (!rodando) atual = window.scrollY;
-      alvo = Math.max(0, Math.min(max(), alvo + delta));
-      if (!rodando) { rodando = true; requestAnimationFrame(passo); }
-    }, { passive: false });
-    window.addEventListener("scroll", () => { if (!rodando) alvo = window.scrollY; }, { passive: true });
-  }
+  /* Rolagem: NATIVA. A "rolagem suave com inércia" (interceptar a roda com preventDefault e interpolar o
+     scroll por quadro) foi removida em 2026-11-20: medida com eventos reais de roda, a página só começava a
+     mover ~250 ms depois do tique e levava ~540 ms para chegar ao destino, porque cada window.scrollTo caía
+     dentro do scroll-behavior: smooth do CSS e o navegador animava por cima da animação do JS. Os amigos do
+     Alexandre sentiram como "delay". A rolagem por âncora (menu) continua suave pelo CSS. */
 
   /* Capa: anel de linhas atrás do escudo + escudo em 3D que acompanha o ponteiro */
   const arte = $(".hero__arte");
